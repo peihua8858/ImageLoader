@@ -1,12 +1,11 @@
 package com.fz.imageloader.activity;
 
 import android.os.Bundle;
-
+import com.fz.imageloader.demo.R;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.fz.imageloader.Constants;
-import com.fz.imageloader.R;
 import com.fz.imageloader.widget.RatioImageView;
 
 /**

@@ -11,6 +11,7 @@ import com.fz.imageloader.activity.*
 import com.fz.imageloader.glide.ImageGlideFetcher
 import com.socks.library.KLog
 import java.lang.Exception
+import com.fz.imageloader.demo.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

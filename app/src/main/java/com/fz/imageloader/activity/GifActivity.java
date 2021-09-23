@@ -14,7 +14,7 @@ import com.fz.imageloader.GlideScaleType;
 import com.fz.imageloader.ImageLoader;
 import com.fz.imageloader.ImageOptions;
 import com.fz.imageloader.LoaderListener;
-import com.fz.imageloader.R;
+import com.fz.imageloader.demo.R;
 import com.fz.imageloader.widget.RatioImageView;
 import com.socks.library.KLog;
 
