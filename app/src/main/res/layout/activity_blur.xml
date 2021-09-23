@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.fz.imageloader.widget.RatioImageView
+            android:id="@+id/riv_image_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:riv_error="@mipmap/ic_loading_fail"
+            app:riv_height="90dp"
+            app:riv_scaleType="centerCrop"
+            android:scaleType="centerCrop"
+            app:riv_isCropCircle="true"
+            app:riv_placeholder="@drawable/ic_android_placehold"
+            app:riv_width="90dp" />
+
+        <com.fz.imageloader.widget.RatioImageView
+            android:id="@+id/riv_image_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:riv_error="@mipmap/ic_loading_fail"
+            app:riv_height="50dp"
+            app:riv_placeholder="@drawable/ic_android_placehold"
+            app:riv_rotateDegree="90"
+            app:riv_width="50dp" />
+
+        <com.fz.imageloader.widget.RatioImageView
+            android:id="@+id/riv_image_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:riv_error="@mipmap/ic_loading_fail"
+            app:riv_grayScale="true"
+            app:riv_placeholder="@drawable/ic_android_placehold" />
+
+        <com.fz.imageloader.widget.RatioImageView
+            android:id="@+id/riv_image_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:riv_error="@mipmap/ic_loading_fail"
+            app:riv_isBlur="true"
+            app:riv_placeholder="@drawable/ic_android_placehold" />
+
+        <com.fz.imageloader.widget.RatioImageView
+            android:id="@+id/riv_image_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:riv_error="@mipmap/ic_loading_fail"
+            app:riv_placeholder="@drawable/ic_android_placehold"
+            app:riv_roundedMargin="3dp"
+            app:riv_roundedRadius="15dp" />
+        <com.fz.imageloader.widget.RatioImageView
+            android:id="@+id/riv_image_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:riv_error="@mipmap/ic_loading_fail"
+            android:background="@color/purple_500"
+            app:riv_placeholder="@drawable/ic_android_placehold"
+            app:riv_roundedMargin="3dp"
+            app:riv_roundedRadius="15dp" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
