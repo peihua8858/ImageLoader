@@ -378,8 +378,13 @@ open class RatioImageView @JvmOverloads constructor(
             this.setLoaderListener(this@RatioImageView.listener)
             this.setMatrixValues(this@RatioImageView.matrixValues)
             this.setTargetView(this@RatioImageView)
+            this.setShowGif(isShowGif)
+            this.setScaleType(glideScaleType)
             this.setRotateDegree(rotateDegree.toFloat())
             this.setUseAnimationPool(useAnimationPool)
+            this.setPlaceholderDrawable(placeholderDrawable)
+            this.setErrorPlaceholder(errorDrawable)
+            this.setDiskCacheStrategy(diskCacheStrategy)
         })
     }
 

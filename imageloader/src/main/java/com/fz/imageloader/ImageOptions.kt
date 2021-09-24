@@ -212,7 +212,7 @@ class ImageOptions<T>(
             return this
         }
 
-        fun setErrorPlaceholder(errorPlaceholder: Drawable): Builder {
+        fun setErrorPlaceholder(errorPlaceholder: Drawable?): Builder {
             this.errorPlaceholder = errorPlaceholder
             return this
         }
@@ -222,7 +222,7 @@ class ImageOptions<T>(
             return this
         }
 
-        fun setPlaceholderDrawable(placeholderDrawable: Drawable): Builder {
+        fun setPlaceholderDrawable(placeholderDrawable: Drawable?): Builder {
             this.placeholderDrawable = placeholderDrawable
             return this
         }
@@ -282,7 +282,7 @@ class ImageOptions<T>(
             return this
         }
 
-        fun setScaleType(scaleType: GlideScaleType): Builder {
+        fun setScaleType(scaleType: GlideScaleType?): Builder {
             this.scaleType = scaleType
             return this
         }
@@ -355,7 +355,7 @@ class ImageOptions<T>(
             return this
         }
 
-        fun setDiskCacheStrategy(diskCacheStrategy: DiskCacheStrategy): Builder {
+        fun setDiskCacheStrategy(diskCacheStrategy: DiskCacheStrategy?): Builder {
             this.diskCacheStrategy = diskCacheStrategy
             return this
         }
