@@ -169,7 +169,7 @@ class ImageGlideFetcher : IImageLoader {
                 throw IllegalArgumentException("Context is not available!")
             }
         }
-        if (options.imageUrl == null) {
+        if (options.imageUrl == null||options.imageUrl.toString().isEmpty()) {
             Log.e("ImageLoad", "Url is null.")
             callError(
                 imageView,
