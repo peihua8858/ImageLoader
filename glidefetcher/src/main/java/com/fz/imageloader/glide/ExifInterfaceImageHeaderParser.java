@@ -1,4 +1,4 @@
-package com.fz.imageloader.glide.transformations;
+package com.fz.imageloader.glide;
 
 import androidx.annotation.NonNull;
 import androidx.exifinterface.media.ExifInterface;

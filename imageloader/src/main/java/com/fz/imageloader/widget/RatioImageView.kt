@@ -1,36 +1,31 @@
 package com.fz.imageloader.widget
 
-import kotlin.jvm.JvmOverloads
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.annotation.IntDef
-import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.res.ResourcesCompat
-import androidx.core.text.TextUtilsCompat
-import androidx.core.view.ViewCompat
-import androidx.annotation.DrawableRes
-import androidx.core.content.ContextCompat
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import androidx.annotation.DrawableRes
+import androidx.annotation.IntDef
+import androidx.appcompat.content.res.AppCompatResources
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.text.TextUtilsCompat
+import androidx.core.view.ViewCompat
 import com.fz.imageloader.*
 import com.fz.imageloader.utils.Utils
-import java.lang.Exception
-import java.lang.NullPointerException
-import java.lang.annotation.Retention
-import java.lang.annotation.RetentionPolicy
 import java.util.*
 import kotlin.math.ceil
+import kotlin.math.roundToInt
 
 /**
  * 封装glide图片加载处理及变换，但由于glide限制不支持多种变换组合。
- * [.setImageUrl]加载图片，glide 默认缩放
- * [.setImageUrl]宽和高按照给定比例缩放显示
- * [.setImageUrl]加载图片并重设宽度和高度
- * [.setImageUrl]按照给定的请求选项加载图片
- * [.setImageUrl]按照给定的最大宽度等比缩放图片
+ * [setImageUrl]加载图片，glide 默认缩放
+ * [setImageUrl]宽和高按照给定比例缩放显示
+ * [setImageUrl]加载图片并重设宽度和高度
+ * [setImageUrl]按照给定的请求选项加载图片
+ * [setImageUrl]按照给定的最大宽度等比缩放图片
  *
  * @author dingpeihua
  * @version 1.0
@@ -41,18 +36,9 @@ open class RatioImageView @JvmOverloads constructor(
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : AppCompatImageView(context, attrs, defStyleAttr) {
-    /**
-     * 垂直反转
-     */
-    val VERTICAL_MATRIX = floatArrayOf(1f, 0f, 0f, 0f, -1f, 0f, 0f, 0f, 1f)
-
-    /**
-     * 水平反转
-     */
-    val HORIZONTAL_MATRIX = floatArrayOf(-1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 1f)
 
     @IntDef(REVERSE_VERTICAL, REVERSE_HORIZONTAL, REVERSE_LOCALE)
-    @Retention(RetentionPolicy.SOURCE)
+    @Retention(AnnotationRetention.SOURCE)
     internal annotation class Direction
 
     /**
@@ -110,15 +96,11 @@ open class RatioImageView @JvmOverloads constructor(
      * 是否是圆形
      */
     private var isCropCircle = false
+
     /**
-     * 设置宽高比
+     * * 设置宽高比
      * 注意：由算法决定，必须是宽度与高度的比值
      * 即:width/height
-     *
-     * @param ratio
-     */
-    /**
-     * 宽度与高度的比值
      */
     var ratio = 0f
 
@@ -162,7 +144,8 @@ open class RatioImageView @JvmOverloads constructor(
      * 缓存策略
      */
     private var diskCacheStrategy: DiskCacheStrategy? = null
-    protected fun inflate(context: Context, attrs: AttributeSet?, defStyleAttr: Int) {
+
+    init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.RatioImageView, defStyleAttr, 0)
         roundedRadius = a.getDimensionPixelSize(R.styleable.RatioImageView_riv_roundedRadius, 0)
         roundedMargin = a.getDimensionPixelSize(R.styleable.RatioImageView_riv_roundedMargin, 0)
@@ -191,7 +174,7 @@ open class RatioImageView @JvmOverloads constructor(
         a.recycle()
     }
 
-    protected fun getDrawable(context: Context?, resId: Int): Drawable? {
+    fun getDrawable(context: Context?, resId: Int): Drawable? {
         if (resId == -1) {
             return null
         }
@@ -217,7 +200,7 @@ open class RatioImageView @JvmOverloads constructor(
         }
         if (glideScaleType !== scaleType) {
             glideScaleType = scaleType
-            setImageUrl(mUri/*, mOptions*/)
+            setImageUrl(mUri)
         }
     }
 
@@ -229,7 +212,7 @@ open class RatioImageView @JvmOverloads constructor(
      * @date 2019/1/2 18:04
      * @version 1.0
      */
-    fun setListener(listener: LoaderListener<*>?) {
+    open fun setListener(listener: LoaderListener<*>?) {
         this.listener = listener
     }
 
@@ -241,7 +224,7 @@ open class RatioImageView @JvmOverloads constructor(
      * @param width
      * @param height
      */
-    fun setRatio(width: Float, height: Float) {
+    open fun setRatio(width: Float, height: Float) {
         if (height == 0f || width == 0f) {
             ratio = -1f
             return
@@ -253,7 +236,7 @@ open class RatioImageView @JvmOverloads constructor(
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         if (ratio > 0) {
             val width = MeasureSpec.getSize(widthMeasureSpec)
-            val height = Math.round(width / ratio)
+            val height = (width / ratio).roundToInt()
             try {
                 setMeasuredDimension(width, height)
                 return
@@ -268,7 +251,7 @@ open class RatioImageView @JvmOverloads constructor(
                     // ceil not round - avoid thin vertical gaps along the left/right edges
                     val width = MeasureSpec.getSize(widthMeasureSpec)
                     //宽度定- 高度根据使得图片的宽度充满屏幕
-                    val height = Math.ceil(
+                    val height = ceil(
                         (width.toFloat() * d.intrinsicHeight
                             .toFloat() / d.intrinsicWidth.toFloat()).toDouble()
                     ).toInt()
@@ -349,7 +332,7 @@ open class RatioImageView @JvmOverloads constructor(
      * 统一资源标志符加载图片,如果传入的宽和高大于0，则自动压缩图片以适应传入的宽和高
      *
      * @param uri            需要加载图片的统一资源标志符
-     * @param sizeMultiplier [RequestOptions.sizeMultiplier]
+     * @param sizeMultiplier [ImageOptions.sizeMultiplier]
      * @author dingpeihua
      * @date 2017/7/4 15:07
      * @version 1.0
@@ -371,7 +354,6 @@ open class RatioImageView @JvmOverloads constructor(
      * @date 2017/7/4 15:07
      * @version 1.0
      */
-    @SuppressLint("CheckResult")
     fun setImageUrl(uri: Any?) {
         if (uri == null) {
             return
@@ -398,7 +380,6 @@ open class RatioImageView @JvmOverloads constructor(
             this.setTargetView(this@RatioImageView)
             this.setRotateDegree(rotateDegree.toFloat())
             this.setUseAnimationPool(useAnimationPool)
-          ratio
         })
     }
 
@@ -502,9 +483,5 @@ open class RatioImageView @JvmOverloads constructor(
         private val S_REVERSE_DIRECTION = intArrayOf(
             REVERSE_VERTICAL, REVERSE_HORIZONTAL, REVERSE_LOCALE
         )
-    }
-
-    init {
-        inflate(context, attrs, defStyleAttr)
     }
 }

@@ -17,7 +17,6 @@ import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
 import com.bumptech.glide.load.model.GlideUrl;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
-import com.fz.imageloader.glide.transformations.ExifInterfaceImageHeaderParser;
 
 import java.io.InputStream;
 import java.util.Iterator;
