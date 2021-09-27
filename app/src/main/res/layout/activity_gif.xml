@@ -65,5 +65,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true" />
+
+        <ImageView
+            android:id="@+id/riv_image_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxWidth="140dp"
+            android:maxHeight="90dp"
+            android:adjustViewBounds="true" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

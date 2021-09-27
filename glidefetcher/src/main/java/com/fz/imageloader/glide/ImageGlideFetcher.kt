@@ -23,7 +23,9 @@ import com.bumptech.glide.load.resource.bitmap.FitCenter
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.ImageViewTarget
 import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.transition.Transition
 import com.fz.imageloader.IImageLoader
 import com.fz.imageloader.ImageOptions
 import com.fz.imageloader.LoaderListener
@@ -169,7 +171,7 @@ class ImageGlideFetcher : IImageLoader {
                 throw IllegalArgumentException("Context is not available!")
             }
         }
-        if (options.imageUrl == null||options.imageUrl.toString().isEmpty()) {
+        if (options.imageUrl == null || options.imageUrl.toString().isEmpty()) {
             Log.e("ImageLoad", "Url is null.")
             callError(
                 imageView,
@@ -207,15 +209,6 @@ class ImageGlideFetcher : IImageLoader {
             )
         }
         loadImage(requestBuilder, requestOptions, options)
-//        val imageView = options.targetView
-//        if (imageView is ImageView) {
-//            requestBuilder.into(imageView)
-//        } else {
-//            requestBuilder.submit(
-//                if (options.overrideWidth == 0) Target.SIZE_ORIGINAL else options.overrideWidth,
-//                if (options.overrideHeight == 0) Target.SIZE_ORIGINAL else options.overrideHeight
-//            )
-//        }
     }
 
     private fun <T> loadDrawable(
@@ -234,16 +227,6 @@ class ImageGlideFetcher : IImageLoader {
             )
         }
         loadImage(requestBuilder, requestOptions, options)
-//        requestBuilder.imageUrl(requestOptions, options)
-//        val imageView = options.targetView
-//        if (imageView is ImageView) {
-//            requestBuilder.into(imageView)
-//        } else {
-//            requestBuilder.submit(
-//                if (options.overrideWidth == 0) Target.SIZE_ORIGINAL else options.overrideWidth,
-//                if (options.overrideHeight == 0) Target.SIZE_ORIGINAL else options.overrideHeight
-//            )
-//        }
     }
 
     private fun <T> loadBitmap(
@@ -251,7 +234,7 @@ class ImageGlideFetcher : IImageLoader {
         requestOptions: RequestOptions,
         options: ImageOptions<T>
     ) {
-        var requestBuilder = requestManager.asBitmap()
+        var requestBuilder: RequestBuilder<Bitmap> = requestManager.asBitmap()
         if (options.loaderListener != null) {
             requestBuilder = requestBuilder.listener(
                 DRequestListener(
@@ -268,7 +251,7 @@ class ImageGlideFetcher : IImageLoader {
         requestBuilder: RequestBuilder<*>,
         requestOptions: RequestOptions,
         options: ImageOptions<T>
-    ): RequestBuilder<*> {
+    ): RequestBuilder<T> {
         var builder = requestBuilder
         if (options.imageUrl is Int) {
             val resourceId = options.imageUrl as Int
@@ -285,7 +268,7 @@ class ImageGlideFetcher : IImageLoader {
                     options.loaderListener,
                     "Url is empty"
                 )
-                return builder
+                return builder as RequestBuilder<T>
             }
             if (url.startsWith("http")) {
                 builder = builder.load(url)
@@ -301,7 +284,7 @@ class ImageGlideFetcher : IImageLoader {
             builder = builder.load(options.imageUrl)
             builder = builder.apply(requestOptions)
         }
-        return builder
+        return builder as RequestBuilder<T>
     }
 
     private fun <T> loadImage(
@@ -312,7 +295,10 @@ class ImageGlideFetcher : IImageLoader {
         var builder = requestBuilder
         builder = imageUrl(builder, requestOptions, options)
         val imageView = options.targetView
-        if (imageView is ImageView) {
+        val target = options.target
+        if (target != null && imageView is ImageView) {
+            builder.into(ImageTarget(imageView, target))
+        } else if (imageView is ImageView) {
             builder.into(imageView)
         } else {
             builder.submit(
@@ -423,5 +409,30 @@ class ImageGlideFetcher : IImageLoader {
             return false
         }
 
+    }
+
+    internal class ImageTarget<R>(
+        imageView: ImageView?,
+        private val target: com.fz.imageloader.Target<R>
+    ) :
+        ImageViewTarget<R>(imageView) {
+        override fun onLoadStarted(placeholder: Drawable?) {
+            super.onLoadStarted(placeholder)
+            target.onLoadStarted(placeholder)
+        }
+
+        override fun onLoadFailed(errorDrawable: Drawable?) {
+            super.onLoadFailed(errorDrawable)
+            target.onLoadFailed(errorDrawable)
+        }
+
+        override fun setResource(resource: R?) {
+            target.onResourceReady(resource)
+        }
+
+        override fun onLoadCleared(placeholder: Drawable?) {
+            super.onLoadCleared(placeholder)
+            target.onLoadCleared(placeholder)
+        }
     }
 }

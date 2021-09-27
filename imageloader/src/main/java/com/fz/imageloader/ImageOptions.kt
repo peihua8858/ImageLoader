@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.res.Resources.Theme
 import android.graphics.drawable.Drawable
-import android.renderscript.RenderScript
 import android.view.View
 import androidx.fragment.app.Fragment
 
@@ -83,7 +82,7 @@ class ImageOptions<T>(
      * 圆角类型
      */
     val cornerType: CornerType? = CornerType.ALL,
-    val loaderListener: LoaderListener<T>? = null,
+    val loaderListener: LoaderListener<*>? = null,
     val priority: Priority? = null,
     val diskCacheStrategy: DiskCacheStrategy? = null,
     val reverseDirection: Int = 0,
@@ -91,7 +90,8 @@ class ImageOptions<T>(
     /**
      * 矩阵变化
      */
-    val matrixValues: FloatArray? = null
+    val matrixValues: FloatArray? = null,
+    val target: Target<T>?,
 ) {
 
     companion object {
@@ -109,6 +109,7 @@ class ImageOptions<T>(
         private var fragment: Fragment? = null
         private var activity: Activity? = null
         private var targetView: View? = null
+        private var target: Target<*>? = null
         private var sizeMultiplier = 0f
         private var errorPlaceholder: Drawable? = null
         private var errorId = 0
@@ -175,7 +176,7 @@ class ImageOptions<T>(
          * 是否显示GIF
          */
         private var isShowGif = false
-        private var isShowBitmap: Boolean=false
+        private var isShowBitmap: Boolean = false
 
         /**
          * 圆角类型
@@ -336,10 +337,12 @@ class ImageOptions<T>(
             this.isShowGif = isShowGif
             return this
         }
+
         fun setBitmap(isShowBitmap: Boolean): Builder {
             this.isShowBitmap = isShowBitmap
             return this
         }
+
         fun setCornerType(cornerType: CornerType?): Builder {
             this.cornerType = cornerType
             return this
@@ -375,6 +378,10 @@ class ImageOptions<T>(
             return this
         }
 
+        fun setTarget(target: Target<*>?): Builder {
+            this.target = target
+            return this
+        }
         fun build() = ImageOptions(
             context,
             fragment,
@@ -405,14 +412,14 @@ class ImageOptions<T>(
             fuzzyRadius,
             sampling,
             rotateDegree,
-            isShowGif,isShowBitmap,
+            isShowGif, isShowBitmap,
             cornerType,
             loaderListener,
             priority,
             diskCacheStrategy,
             reverseDirection,
             isRtl,
-            matrixValues
+            matrixValues, target
         )
     }
 }

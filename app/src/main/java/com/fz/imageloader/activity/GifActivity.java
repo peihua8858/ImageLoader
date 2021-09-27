@@ -1,6 +1,7 @@
 package com.fz.imageloader.activity;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -14,6 +15,7 @@ import com.fz.imageloader.GlideScaleType;
 import com.fz.imageloader.ImageLoader;
 import com.fz.imageloader.ImageOptions;
 import com.fz.imageloader.LoaderListener;
+import com.fz.imageloader.Target;
 import com.fz.imageloader.demo.R;
 import com.fz.imageloader.widget.RatioImageView;
 import com.socks.library.KLog;
@@ -48,7 +50,7 @@ public class GifActivity extends AppCompatActivity {
 //                .optionalTransform(WebpDrawable.class, new WebpDrawableTransformation(circleCrop))
 //                .into(imageView1);
 //        imageView1.setImageUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574081143936&di=fbc35b1b5134857f89c9774d4be8871f&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F43efd35d1e9cadc6d8ff5cdc5faccec06f1082bb4efc4-o8K27E_fw658");
-        imageView1.setImageUrl("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif",screenWidth,newHeight);
+        imageView1.setImageUrl("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif", screenWidth, newHeight);
 //        Glide.with(this).asGif()
 //                .apply(new RequestOptions().override(screenWidth,newHeight)).load("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif").into(imageView1);
         RatioImageView imageView2 = findViewById(R.id.riv_image_2);
@@ -66,19 +68,48 @@ public class GifActivity extends AppCompatActivity {
 //        imageView6.setImage(urls[2],screenWidth, newHeight);
         imageView6.setImageUrl("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif", screenWidth, newHeight);
         ImageView imageView7 = findViewById(R.id.riv_image_7);
+        ImageView imageView8 = findViewById(R.id.riv_image_8);
         ImageLoader.getInstance().loadImage(new ImageOptions.Builder()
                 .setImageUrl("https://uidesign.rglcdn.com/RG/image/others/20190830_12416/LOGO@3x.png")
                 .setTargetView(imageView7)
+                .setBitmap(true)
                 .setScaleType(GlideScaleType.CENTER_INSIDE)
-                .setLoaderListener(new LoaderListener<Drawable>() {
+                .setTarget(new Target<Bitmap>() {
                     @Override
-                    public boolean onSuccess(Drawable bitmap, int width, int height) {
-                        KLog.d("ImageLoader>>bitmap:[" + bitmap.getIntrinsicWidth() + ":" + bitmap.getIntrinsicHeight() + "]");
+                    public void onLoadStarted(@Nullable Drawable placeholder) {
+                        KLog.d("ImageLoader>>onLoadStarted");
+                    }
+
+                    @Override
+                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                        KLog.d("ImageLoader>>onLoadFailed");
+                    }
+
+                    @Override
+                    public void onResourceReady(@Nullable Bitmap resource) {
+                        KLog.d("ImageLoader>>resource:" + resource);
+                        if (resource != null) {
+                            KLog.d("ImageLoader>>bitmap:[" + resource.getWidth() + ":" + resource.getHeight() + "]");
+                        }
+                        imageView7.setImageBitmap(resource);
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                        KLog.d("ImageLoader>>onLoadCleared");
+                    }
+                }).setLoaderListener(new LoaderListener<Bitmap>() {
+                    @Override
+                    public boolean onSuccess(Bitmap bitmap, int width, int height) {
+                        KLog.d("ImageLoader>>bitmap:" + bitmap);
+                        KLog.d("ImageLoader>>bitmap:[" + width + ":" + height + "]");
+                        imageView8.setImageBitmap(bitmap);
                         return false;
                     }
 
                     @Override
                     public boolean onError(Exception e) {
+                        KLog.d("ImageLoader>>onError");
                         return false;
                     }
                 })
