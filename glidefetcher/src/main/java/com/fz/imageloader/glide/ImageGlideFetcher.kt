@@ -269,12 +269,12 @@ class ImageGlideFetcher : IImageLoader {
                 )
                 return builder as RequestBuilder<T>
             }
-            if (url.startsWith("http")) {
-                builder = builder.load(url)
-                builder = builder.apply(requestOptions)
-            } else {
+            if (url.uppercase().startsWith("file://")) {
                 builder = builder.load(File(url))
                 builder = builder.apply(getFileOptions(requestOptions))
+            } else {
+                builder = builder.load(url)
+                builder = builder.apply(requestOptions)
             }
         } else if (options.imageUrl is File) {
             builder = builder.load(options.imageUrl as File?)
