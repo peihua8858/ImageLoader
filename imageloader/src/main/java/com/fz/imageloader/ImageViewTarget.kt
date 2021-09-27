@@ -1,8 +1,9 @@
 package com.fz.imageloader
 
 import android.graphics.drawable.Drawable
+import android.widget.ImageView
 
-interface Target<R> {
+abstract class ImageViewTarget<R>(val imageView: ImageView) {
 
     /**
      * A lifecycle callback that is called when a load is started.
@@ -18,7 +19,7 @@ interface Target<R> {
      *
      * @param placeholder The placeholder drawable to optionally show, or null.
      */
-    fun onLoadStarted(placeholder: Drawable?)
+    abstract fun onLoadStarted(placeholder: Drawable?)
 
     /**
      * A **mandatory** lifecycle callback that is called when a load fails.
@@ -33,14 +34,14 @@ interface Target<R> {
      *
      * @param errorDrawable The error drawable to optionally show, or null.
      */
-    fun onLoadFailed(errorDrawable: Drawable?)
+    abstract fun onLoadFailed(errorDrawable: Drawable?)
 
     /**
      * The method that will be called when the resource load has finished.
      *
      * @param resource the loaded resource.
      */
-    fun onResourceReady(resource: R?)
+    abstract fun onResourceReady(resource: R?)
 
     /**
      * A **mandatory** lifecycle callback that is called when a load is cancelled and its resources
@@ -52,6 +53,6 @@ interface Target<R> {
      *
      * @param placeholder The placeholder drawable to optionally show, or null.
      */
-    fun onLoadCleared(placeholder: Drawable?)
+    abstract fun onLoadCleared(placeholder: Drawable?)
 
 }

@@ -25,11 +25,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.ImageViewTarget
 import com.bumptech.glide.request.target.Target
-import com.bumptech.glide.request.transition.Transition
-import com.fz.imageloader.IImageLoader
-import com.fz.imageloader.ImageOptions
-import com.fz.imageloader.LoaderListener
-import com.fz.imageloader.GlideScaleType
+import com.fz.imageloader.*
 import com.fz.imageloader.glide.transformations.*
 import com.fz.imageloader.widget.RatioImageView
 import java.io.File
@@ -296,15 +292,19 @@ class ImageGlideFetcher : IImageLoader {
         builder = imageUrl(builder, requestOptions, options)
         val imageView = options.targetView
         val target = options.target
-        if (target != null && imageView is ImageView) {
-            builder.into(ImageTarget(imageView, target))
-        } else if (imageView is ImageView) {
-            builder.into(imageView)
-        } else {
-            builder.submit(
-                if (options.overrideWidth == 0) Target.SIZE_ORIGINAL else options.overrideWidth,
-                if (options.overrideHeight == 0) Target.SIZE_ORIGINAL else options.overrideHeight
-            )
+        when {
+            target != null -> {
+                builder.into(ImageTarget(target))
+            }
+            imageView is ImageView -> {
+                builder.into(imageView)
+            }
+            else -> {
+                builder.submit(
+                    if (options.overrideWidth == 0) Target.SIZE_ORIGINAL else options.overrideWidth,
+                    if (options.overrideHeight == 0) Target.SIZE_ORIGINAL else options.overrideHeight
+                )
+            }
         }
     }
 
@@ -412,10 +412,8 @@ class ImageGlideFetcher : IImageLoader {
     }
 
     internal class ImageTarget<R>(
-        imageView: ImageView?,
-        private val target: com.fz.imageloader.Target<R>
-    ) :
-        ImageViewTarget<R>(imageView) {
+        private val target: com.fz.imageloader.ImageViewTarget<R>
+    ) : ImageViewTarget<R>(target.imageView) {
         override fun onLoadStarted(placeholder: Drawable?) {
             super.onLoadStarted(placeholder)
             target.onLoadStarted(placeholder)

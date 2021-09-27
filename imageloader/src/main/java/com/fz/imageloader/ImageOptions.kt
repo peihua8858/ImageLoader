@@ -91,7 +91,7 @@ class ImageOptions<T>(
      * 矩阵变化
      */
     val matrixValues: FloatArray? = null,
-    val target: Target<T>?,
+    val target: ImageViewTarget<T>?,
 ) {
 
     companion object {
@@ -109,7 +109,7 @@ class ImageOptions<T>(
         private var fragment: Fragment? = null
         private var activity: Activity? = null
         private var targetView: View? = null
-        private var target: Target<*>? = null
+        private var target: ImageViewTarget<*>? = null
         private var sizeMultiplier = 0f
         private var errorPlaceholder: Drawable? = null
         private var errorId = 0
@@ -378,7 +378,7 @@ class ImageOptions<T>(
             return this
         }
 
-        fun setTarget(target: Target<*>?): Builder {
+        fun setTarget(target: ImageViewTarget<*>?): Builder {
             this.target = target
             return this
         }
