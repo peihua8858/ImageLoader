@@ -160,6 +160,9 @@ class ImageGlideFetcher : IImageLoader {
             options.context != null -> {
                 Glide.with(options.context!!)
             }
+            options.target != null -> {
+                Glide.with(options.target!!.imageView)
+            }
             imageView != null -> {
                 Glide.with(imageView)
             }

@@ -14,8 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.fz.imageloader.GlideScaleType;
 import com.fz.imageloader.ImageLoader;
 import com.fz.imageloader.ImageOptions;
+import com.fz.imageloader.ImageViewTarget;
 import com.fz.imageloader.LoaderListener;
-import com.fz.imageloader.Target;
 import com.fz.imageloader.demo.R;
 import com.fz.imageloader.widget.RatioImageView;
 import com.socks.library.KLog;
@@ -71,10 +71,9 @@ public class GifActivity extends AppCompatActivity {
         ImageView imageView8 = findViewById(R.id.riv_image_8);
         ImageLoader.getInstance().loadImage(new ImageOptions.Builder()
                 .setImageUrl("https://uidesign.rglcdn.com/RG/image/others/20190830_12416/LOGO@3x.png")
-                .setTargetView(imageView7)
                 .setBitmap(true)
                 .setScaleType(GlideScaleType.CENTER_INSIDE)
-                .setTarget(new Target<Bitmap>() {
+                .setTarget(new ImageViewTarget<Bitmap>(imageView7) {
                     @Override
                     public void onLoadStarted(@Nullable Drawable placeholder) {
                         KLog.d("ImageLoader>>onLoadStarted");
