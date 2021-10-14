@@ -51,12 +51,6 @@ class ImageGlideFetcher : IImageLoader {
         if (options.isAutoCloneEnabled) {
             requestOptions.autoClone()
         }
-        if (options.overrideHeight > 0 || options.overrideWidth > 0) {
-            requestOptions = requestOptions.override(
-                if (options.overrideWidth > 0) options.overrideWidth else options.overrideHeight,
-                if (options.overrideHeight > 0) options.overrideHeight else options.overrideWidth
-            )
-        }
         if (options.sizeMultiplier > 0) {
             requestOptions = requestOptions.sizeMultiplier(options.sizeMultiplier)
         }
@@ -73,11 +67,23 @@ class ImageGlideFetcher : IImageLoader {
         } else if (options.errorId > 0) {
             requestOptions = requestOptions.error(options.errorId)
         }
+        var hasPlaceholder = false
         if (options.placeholderDrawable != null) {
+            hasPlaceholder = true
             requestOptions = requestOptions.placeholder(options.placeholderDrawable)
         } else if (options.placeholderId > 0) {
+            hasPlaceholder = true
             requestOptions = requestOptions.placeholder(options.placeholderId)
         }
+        if (options.overrideHeight > 0 || options.overrideWidth > 0) {
+            requestOptions = requestOptions.override(
+                if (options.overrideWidth > 0) options.overrideWidth else options.overrideHeight,
+                if (options.overrideHeight > 0) options.overrideHeight else options.overrideWidth
+            )
+        } else if (!hasPlaceholder) {
+            requestOptions = requestOptions.override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
+        }
+
         requestOptions = requestOptions.skipMemoryCache(!options.isCacheAble)
         if (options.fallbackDrawable != null) {
             requestOptions = requestOptions.fallback(options.fallbackDrawable)
