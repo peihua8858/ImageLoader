@@ -40,79 +40,79 @@ public class GifActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gif);
-        RatioImageView imageView1 = findViewById(R.id.riv_image_1);
-        int screenWidth = getScreenWidth();
-        int newHeight = screenWidth / (500 / 208);
-//        Transformation<Bitmap> circleCrop = new CircleCrop();
-//        GlideApp.with(this)
-//                .load("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif")
-//                .optionalTransform(circleCrop)
-//                .optionalTransform(WebpDrawable.class, new WebpDrawableTransformation(circleCrop))
-//                .into(imageView1);
-//        imageView1.setImageUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574081143936&di=fbc35b1b5134857f89c9774d4be8871f&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F43efd35d1e9cadc6d8ff5cdc5faccec06f1082bb4efc4-o8K27E_fw658");
-        imageView1.setImageUrl("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif", screenWidth, newHeight);
-//        Glide.with(this).asGif()
-//                .apply(new RequestOptions().override(screenWidth,newHeight)).load("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif").into(imageView1);
-        RatioImageView imageView2 = findViewById(R.id.riv_image_2);
-        newHeight = screenWidth / (500 / 253);
-        imageView2.setImageUrl(urls[1], screenWidth, newHeight);
-        RatioImageView imageView3 = findViewById(R.id.riv_image_3);
-        newHeight = screenWidth / (500 / 300);
-        imageView3.setImageUrl("https://gloimg.zafcdn.com/zaful/pdm-product-pic/Clothing/2019/09/04/goods-grid-app/1567743520941253652.jpg", screenWidth, newHeight);
-        RatioImageView imageView4 = findViewById(R.id.riv_image_4);
-        imageView4.setImageUrl(R.mipmap.free_stock_photo, screenWidth, newHeight);
-        RatioImageView imageView5 = findViewById(R.id.riv_image_5);
-        imageView5.setImageUrl(" https://uidesign.zafcdn.com/ZF/image/2019/20191029_13493/M-750-386-fr.jpg");
-//        imageView5.setImageUrl("https://uidesign.zafcdn.com/ZF/image/2019/20191106_13705/M_10am.gif?yyyyy=w375_2x",screenWidth, newHeight);
-        RatioImageView imageView6 = findViewById(R.id.riv_image_6);
-//        imageView6.setImage(urls[2],screenWidth, newHeight);
-        imageView6.setImageUrl("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif", screenWidth, newHeight);
-        ImageView imageView7 = findViewById(R.id.riv_image_7);
-        ImageView imageView8 = findViewById(R.id.riv_image_8);
-        ImageLoader.getInstance().loadImage(new ImageOptions.Builder()
-                .setImageUrl("https://uidesign.rglcdn.com/RG/image/others/20190830_12416/LOGO@3x.png")
-                .setBitmap(true)
-                .setScaleType(GlideScaleType.CENTER_INSIDE)
-                .setTarget(new ImageViewTarget<Bitmap>(imageView7) {
-                    @Override
-                    public void onLoadStarted(@Nullable Drawable placeholder) {
-                        KLog.d("ImageLoader>>onLoadStarted");
-                    }
-
-                    @Override
-                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                        KLog.d("ImageLoader>>onLoadFailed");
-                    }
-
-                    @Override
-                    public void onResourceReady(@Nullable Bitmap resource) {
-                        KLog.d("ImageLoader>>resource:" + resource);
-                        if (resource != null) {
-                            KLog.d("ImageLoader>>bitmap:[" + resource.getWidth() + ":" + resource.getHeight() + "]");
-                        }
-                        imageView7.setImageBitmap(resource);
-                    }
-
-                    @Override
-                    public void onLoadCleared(@Nullable Drawable placeholder) {
-                        KLog.d("ImageLoader>>onLoadCleared");
-                    }
-                }).setLoaderListener(new LoaderListener<Bitmap>() {
-                    @Override
-                    public boolean onSuccess(Bitmap bitmap, int width, int height) {
-                        KLog.d("ImageLoader>>bitmap:" + bitmap);
-                        KLog.d("ImageLoader>>bitmap:[" + width + ":" + height + "]");
-                        imageView8.setImageBitmap(bitmap);
-                        return false;
-                    }
-
-                    @Override
-                    public boolean onError(Exception e) {
-                        KLog.d("ImageLoader>>onError");
-                        return false;
-                    }
-                })
-                .build());
+//        RatioImageView imageView1 = findViewById(R.id.riv_image_1);
+//        int screenWidth = getScreenWidth();
+//        int newHeight = screenWidth / (500 / 208);
+////        Transformation<Bitmap> circleCrop = new CircleCrop();
+////        GlideApp.with(this)
+////                .load("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif")
+////                .optionalTransform(circleCrop)
+////                .optionalTransform(WebpDrawable.class, new WebpDrawableTransformation(circleCrop))
+////                .into(imageView1);
+////        imageView1.setImageUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574081143936&di=fbc35b1b5134857f89c9774d4be8871f&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F43efd35d1e9cadc6d8ff5cdc5faccec06f1082bb4efc4-o8K27E_fw658");
+//        imageView1.setImageUrl("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif", screenWidth, newHeight);
+////        Glide.with(this).asGif()
+////                .apply(new RequestOptions().override(screenWidth,newHeight)).load("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif").into(imageView1);
+//        RatioImageView imageView2 = findViewById(R.id.riv_image_2);
+//        newHeight = screenWidth / (500 / 253);
+//        imageView2.setImageUrl(urls[1], screenWidth, newHeight);
+//        RatioImageView imageView3 = findViewById(R.id.riv_image_3);
+//        newHeight = screenWidth / (500 / 300);
+//        imageView3.setImageUrl("https://gloimg.zafcdn.com/zaful/pdm-product-pic/Clothing/2019/09/04/goods-grid-app/1567743520941253652.jpg", screenWidth, newHeight);
+//        RatioImageView imageView4 = findViewById(R.id.riv_image_4);
+//        imageView4.setImageUrl(R.mipmap.free_stock_photo, screenWidth, newHeight);
+//        RatioImageView imageView5 = findViewById(R.id.riv_image_5);
+//        imageView5.setImageUrl(" https://uidesign.zafcdn.com/ZF/image/2019/20191029_13493/M-750-386-fr.jpg");
+////        imageView5.setImageUrl("https://uidesign.zafcdn.com/ZF/image/2019/20191106_13705/M_10am.gif?yyyyy=w375_2x",screenWidth, newHeight);
+//        RatioImageView imageView6 = findViewById(R.id.riv_image_6);
+////        imageView6.setImage(urls[2],screenWidth, newHeight);
+//        imageView6.setImageUrl("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif", screenWidth, newHeight);
+//        ImageView imageView7 = findViewById(R.id.riv_image_7);
+//        ImageView imageView8 = findViewById(R.id.riv_image_8);
+//        ImageLoader.getInstance().loadImage(new ImageOptions.Builder()
+//                .setImageUrl("https://uidesign.rglcdn.com/RG/image/others/20190830_12416/LOGO@3x.png")
+//                .setBitmap(true)
+//                .setScaleType(GlideScaleType.CENTER_INSIDE)
+//                .setTarget(new ImageViewTarget<Bitmap>(imageView7) {
+//                    @Override
+//                    public void onLoadStarted(@Nullable Drawable placeholder) {
+//                        KLog.d("ImageLoader>>onLoadStarted");
+//                    }
+//
+//                    @Override
+//                    public void onLoadFailed(@Nullable Drawable errorDrawable) {
+//                        KLog.d("ImageLoader>>onLoadFailed");
+//                    }
+//
+//                    @Override
+//                    public void onResourceReady(@Nullable Bitmap resource) {
+//                        KLog.d("ImageLoader>>resource:" + resource);
+//                        if (resource != null) {
+//                            KLog.d("ImageLoader>>bitmap:[" + resource.getWidth() + ":" + resource.getHeight() + "]");
+//                        }
+//                        imageView7.setImageBitmap(resource);
+//                    }
+//
+//                    @Override
+//                    public void onLoadCleared(@Nullable Drawable placeholder) {
+//                        KLog.d("ImageLoader>>onLoadCleared");
+//                    }
+//                }).setLoaderListener(new LoaderListener<Bitmap>() {
+//                    @Override
+//                    public boolean onSuccess(Bitmap bitmap, int width, int height) {
+//                        KLog.d("ImageLoader>>bitmap:" + bitmap);
+//                        KLog.d("ImageLoader>>bitmap:[" + width + ":" + height + "]");
+//                        imageView8.setImageBitmap(bitmap);
+//                        return false;
+//                    }
+//
+//                    @Override
+//                    public boolean onError(Exception e) {
+//                        KLog.d("ImageLoader>>onError");
+//                        return false;
+//                    }
+//                })
+//                .build());
 //        ImageLoader.createBuilder(this)
 //                .load()
 //                .into(imageView7)

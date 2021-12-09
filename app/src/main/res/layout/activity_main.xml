@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical">
@@ -9,6 +10,12 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择图片" />
 
         <Button
             android:id="@+id/btn_circle"
@@ -33,18 +40,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="高斯模糊" />
+
         <Button
             android:id="@+id/btn_gif"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="显示gif" />
 
-        <ImageView
+        <com.fz.imageloader.activity.RatioImageView
             android:id="@+id/riv_image_7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:maxWidth="140dp"
-            android:maxHeight="90dp"
-            android:adjustViewBounds="true" />
+            android:adjustViewBounds="true"
+            app:riv_isShowGif="true"
+            app:riv_placeholder="@mipmap/ic_launcher"
+            app:srcCompat="@mipmap/ic_insure_loading" />
+
+        <com.fz.imageloader.widget.RatioImageView
+            android:id="@+id/riv_image_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:riv_isShowGif="true"
+            app:riv_placeholder="@mipmap/ic_launcher"
+            app:srcCompat="@mipmap/ic_insure_loading" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

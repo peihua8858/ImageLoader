@@ -2,6 +2,9 @@ package com.fz.imageloader;
 
 import android.app.Application;
 
+import com.fz.imageloader.glide.ImageGlideFetcher;
+import com.socks.library.KLog;
+
 import java.io.File;
 
 public class MyApplication extends Application {
@@ -11,6 +14,8 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        KLog.init(true);
+        ImageLoader.getInstance().createProcessor(new ImageGlideFetcher());
     }
 
     public static MyApplication getInstance() {
