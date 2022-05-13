@@ -19,15 +19,15 @@
             app:riv_srcCompat="@mipmap/ic_insure_loading"
             app:riv_isShowGif="true" />
 
-<!--        <com.fz.imageloader.widget.RatioImageView-->
-<!--            android:id="@+id/riv_image_1"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:scaleType="fitCenter"-->
-<!--            app:riv_error="@mipmap/ic_loading_fail"-->
-<!--            app:riv_grayScale="true"-->
-<!--            app:riv_placeholder="@drawable/ic_android_placehold"-->
-<!--            app:riv_scaleType="centerCrop" />-->
+        <com.fz.imageloader.widget.RatioImageView
+            android:id="@+id/riv_image_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            app:riv_error="@mipmap/ic_loading_fail"
+            app:riv_grayScale="true"
+            app:riv_placeholder="@drawable/ic_android_placehold"
+            app:riv_scaleType="centerCrop" />
 
 <!--        <com.fz.imageloader.widget.RatioImageView-->
 <!--            android:id="@+id/riv_image_2"-->

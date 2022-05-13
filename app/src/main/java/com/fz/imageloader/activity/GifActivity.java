@@ -40,7 +40,7 @@ public class GifActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gif);
-//        RatioImageView imageView1 = findViewById(R.id.riv_image_1);
+        RatioImageView imageView1 = findViewById(R.id.riv_image_1);
 //        int screenWidth = getScreenWidth();
 //        int newHeight = screenWidth / (500 / 208);
 ////        Transformation<Bitmap> circleCrop = new CircleCrop();
@@ -49,7 +49,7 @@ public class GifActivity extends AppCompatActivity {
 ////                .optionalTransform(circleCrop)
 ////                .optionalTransform(WebpDrawable.class, new WebpDrawableTransformation(circleCrop))
 ////                .into(imageView1);
-////        imageView1.setImageUrl("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1574081143936&di=fbc35b1b5134857f89c9774d4be8871f&imgtype=0&src=http%3A%2F%2Fhbimg.b0.upaiyun.com%2F43efd35d1e9cadc6d8ff5cdc5faccec06f1082bb4efc4-o8K27E_fw658");
+        imageView1.setImageUrl("http://10.8.41.162:8090/upload/bts_flow.gif?t=314324799999999999999999999999999999",false);
 //        imageView1.setImageUrl("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif", screenWidth, newHeight);
 ////        Glide.with(this).asGif()
 ////                .apply(new RequestOptions().override(screenWidth,newHeight)).load("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif").into(imageView1);

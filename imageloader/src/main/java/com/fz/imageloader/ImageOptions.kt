@@ -98,7 +98,13 @@ class ImageOptions<T>(
         /**
          * 带接收者的函数类型,这意味着我们需要向函数传递一个Builder类型的实例
          */
+        @JvmStatic
         inline fun build(block: Builder.() -> Unit) = Builder().apply(block).build()
+
+        @JvmStatic
+        fun createBuilder(): Builder {
+            return Builder()
+        }
     }
 
     class Builder {
@@ -382,6 +388,7 @@ class ImageOptions<T>(
             this.target = target
             return this
         }
+
         fun build() = ImageOptions(
             context,
             fragment,

@@ -118,7 +118,6 @@ open class RatioImageView @JvmOverloads constructor(
      * glide图片缩放类型
      */
     var glideScaleType: GlideScaleType? = null
-        private set
 
     /**
      * 加载监听器

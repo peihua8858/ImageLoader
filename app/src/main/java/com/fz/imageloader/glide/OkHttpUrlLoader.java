@@ -9,9 +9,13 @@ import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
 import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
 
 public class OkHttpUrlLoader implements ModelLoader<GlideUrl, InputStream> {
 
@@ -47,7 +51,14 @@ public class OkHttpUrlLoader implements ModelLoader<GlideUrl, InputStream> {
             if (internalClient == null) {
                 synchronized (Factory.class) {
                     if (internalClient == null) {
-                        internalClient = new OkHttpClient();
+                        internalClient = new OkHttpClient.Builder()
+                                .protocols(Collections.singletonList(Protocol.HTTP_1_1))
+                                .connectTimeout(10, TimeUnit.MINUTES)
+                                .readTimeout(10, TimeUnit.MINUTES)
+                                .writeTimeout(10, TimeUnit.MINUTES)
+                                .retryOnConnectionFailure(false)
+
+                                .build();
                     }
                 }
             }

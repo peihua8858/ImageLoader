@@ -63,7 +63,7 @@ public class SimpleGlideModule extends AppGlideModule {
     @Override
     public void registerComponents(@NonNull Context context, @NonNull Glide glide, @NonNull Registry registry) {
         // 配置使用OKHttp来请求网络
-        registry.replace(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
+        registry.replace(GlideUrl.class, InputStream.class, new HttpGlideUrlLoader.Factory());
         List<ImageHeaderParser> imageHeaderParsers = registry.getImageHeaderParsers();
 //        android.media.ExifInterface.readByteOrder(ExifInterface.java:3121)
 //        Invalid image: ExifInterface got an unsupported image format file(ExifInterface supports JPEG and some RAW image formats only)

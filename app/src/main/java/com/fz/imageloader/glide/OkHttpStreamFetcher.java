@@ -51,7 +51,11 @@ public class OkHttpStreamFetcher implements DataFetcher<InputStream>, okhttp3.Ca
       requestBuilder.addHeader(key, headerEntry.getValue());
     }
     //X-IM-Format: chrome 控制加载的图片为web图片
-    requestBuilder.addHeader("X-IM-Format", "chrome");
+    requestBuilder.header("Connection","close");
+    requestBuilder.header("Accept-Encoding", "identity");
+//    requestBuilder.addHeader("Accept-Encoding", "identity");
+//    requestBuilder.addHeader("X-IM-Format", "chrome");
+//    requestBuilder.addHeader("Connection","close");
     Request request = requestBuilder.build();
     this.callback = callback;
 
