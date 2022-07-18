@@ -49,7 +49,7 @@ public class GifActivity extends AppCompatActivity {
 ////                .optionalTransform(circleCrop)
 ////                .optionalTransform(WebpDrawable.class, new WebpDrawableTransformation(circleCrop))
 ////                .into(imageView1);
-        imageView1.setImageUrl("http://10.8.41.162:8090/upload/bts_flow.gif?t=314324799999999999999999999999999999",false);
+        imageView1.setImageUrl("https://gloimg.zafcdn.com/zaful/pdm-product-pic/Clothing/2019/04/12/grid-img/1565893773365970176.jpg");
 //        imageView1.setImageUrl("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif", screenWidth, newHeight);
 ////        Glide.with(this).asGif()
 ////                .apply(new RequestOptions().override(screenWidth,newHeight)).load("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif").into(imageView1);
