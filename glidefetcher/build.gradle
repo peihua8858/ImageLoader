@@ -50,7 +50,7 @@ afterEvaluate {
                 from components.release
                 groupId = 'com.github.peihua8858'
                 artifactId = 'glidefetcher'
-                version = '1.0.10'
+                version = '1.0.11'
                 artifact(sourceJar)
             }
         }

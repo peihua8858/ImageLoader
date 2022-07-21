@@ -2,6 +2,8 @@
 <resources>
     <declare-styleable name="RatioImageView">
         <!--图片-->
+        <attr name="srcCompat" format="reference" />
+        <!-- {@deprecated Use srcCompat instead.} -->
         <attr name="riv_srcCompat" format="reference" />
         <!--加载中-->
         <attr name="riv_placeholder" format="reference" />

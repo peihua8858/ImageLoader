@@ -1,4 +1,4 @@
-package com.fz.imageloader;
+package com.fz.imageloader.demo;
 
 import android.app.Activity;
 import android.content.Context;

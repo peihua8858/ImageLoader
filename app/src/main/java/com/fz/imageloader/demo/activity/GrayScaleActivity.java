@@ -1,4 +1,4 @@
-package com.fz.imageloader.activity;
+package com.fz.imageloader.demo.activity;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -7,7 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.fz.imageloader.Constants;
+import com.fz.imageloader.demo.Constants;
 import com.fz.imageloader.LoaderListener;
 import com.fz.imageloader.demo.R;
 import com.fz.imageloader.widget.RatioImageView;

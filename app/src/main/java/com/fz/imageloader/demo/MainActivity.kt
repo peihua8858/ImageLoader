@@ -1,4 +1,4 @@
-package com.fz.imageloader
+package com.fz.imageloader.demo
 
 import android.content.Intent
 import android.os.AsyncTask
@@ -10,14 +10,11 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fz.common.utils.getDiskCacheDir
 import com.fz.common.utils.getFileFromUri
 import com.fz.dialog.LoadingDialogFragment
-import com.fz.imageloader.activity.*
-import com.fz.imageloader.demo.R
-import com.fz.imageloader.glide.ImageCompress
-import com.fz.imageloader.glide.ImageGlideFetcher
+import com.fz.imageloader.demo.activity.*
+import com.fz.imageloader.demo.glide.ImageCompress
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
-import com.socks.library.KLog
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream

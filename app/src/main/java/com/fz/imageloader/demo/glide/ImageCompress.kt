@@ -1,4 +1,4 @@
-package com.fz.imageloader.glide
+package com.fz.imageloader.demo.glide
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -7,7 +7,6 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.gifdecoder.GifHeaderParser
 import com.bumptech.glide.gifdecoder.StandardGifDecoder
 import com.bumptech.glide.gifencoder.AnimatedGifEncoder
-import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPoolAdapter
 import com.bumptech.glide.load.resource.gif.GifBitmapProvider
 import com.fz.common.utils.dLog
 import java.io.ByteArrayOutputStream

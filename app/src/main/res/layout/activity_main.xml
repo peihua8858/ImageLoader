@@ -47,7 +47,7 @@
             android:layout_height="wrap_content"
             android:text="显示gif" />
 
-        <com.fz.imageloader.activity.RatioImageView
+        <com.fz.imageloader.demo.activity.RatioImageView
             android:id="@+id/riv_image_7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

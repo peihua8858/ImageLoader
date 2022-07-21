@@ -1,8 +1,8 @@
-package com.fz.imageloader.glide;
+package com.fz.imageloader.demo.glide;
 
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheFactory;
-import com.fz.imageloader.MyApplication;
+import com.fz.imageloader.demo.MyApplication;
 
 /**
  * glide图片保存至SD卡

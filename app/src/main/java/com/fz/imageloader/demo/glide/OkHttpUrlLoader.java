@@ -1,4 +1,4 @@
-package com.fz.imageloader.glide;
+package com.fz.imageloader.demo.glide;
 
 import androidx.annotation.NonNull;
 
@@ -9,7 +9,6 @@ import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 

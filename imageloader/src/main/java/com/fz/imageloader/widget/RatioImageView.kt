@@ -171,16 +171,14 @@ open class RatioImageView @JvmOverloads constructor(
             getDrawable(context, a.getResourceId(R.styleable.RatioImageView_riv_placeholder, -1))
         errorDrawable =
             getDrawable(context, a.getResourceId(R.styleable.RatioImageView_riv_error, -1))
-//        a.recycle()
-//        val ax =
-//            context.obtainStyledAttributes(attrs, R.styleable.AppCompatImageView, defStyleAttr, 0)
-//        srcCompat = ax.getResourceId(R.styleable.AppCompatImageView_srcCompat, -1)
-        srcCompat = a.getResourceId(R.styleable.RatioImageView_riv_srcCompat, -1)
+        srcCompat = a.getResourceId(R.styleable.RatioImageView_srcCompat, -1)
+        if (srcCompat == -1) {
+            srcCompat = a.getResourceId(R.styleable.RatioImageView_riv_srcCompat, -1)
+        }
         if (srcCompat != -1) {
             setImageUrl(srcCompat, isShowGif)
         }
         a.recycle()
-//        ax.recycle()
     }
 
     fun getDrawable(context: Context?, resId: Int): Drawable? {

@@ -1,4 +1,4 @@
-package com.fz.imageloader.activity;
+package com.fz.imageloader.demo.activity;
 
 import android.os.Bundle;
 

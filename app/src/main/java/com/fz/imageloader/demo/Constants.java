@@ -1,4 +1,4 @@
-package com.fz.imageloader;
+package com.fz.imageloader.demo;
 
 public final class Constants {
     public static final String[] urls = {
