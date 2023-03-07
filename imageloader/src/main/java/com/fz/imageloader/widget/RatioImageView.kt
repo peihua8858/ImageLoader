@@ -144,7 +144,7 @@ open class RatioImageView @JvmOverloads constructor(
      */
     private var diskCacheStrategy: DiskCacheStrategy? = null
     private var srcCompat: Int = 0
-
+    private val optionsBuilder: ImageOptions.Builder by lazy { ImageOptions.createBuilder(this) }
     init {
         val a = context.obtainStyledAttributes(attrs, R.styleable.RatioImageView, defStyleAttr, 0)
         roundedRadius = a.getDimensionPixelSize(R.styleable.RatioImageView_riv_roundedRadius, 0)
@@ -352,7 +352,6 @@ open class RatioImageView @JvmOverloads constructor(
         setImageUrl(uri)
     }
 
-    private val optionsBuilder: ImageOptions.Builder by lazy { ImageOptions.createBuilder(this) }
     fun builder(): ImageOptions.Builder {
         return optionsBuilder
     }
