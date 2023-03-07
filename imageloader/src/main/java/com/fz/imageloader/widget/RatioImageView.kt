@@ -352,7 +352,7 @@ open class RatioImageView @JvmOverloads constructor(
         setImageUrl(uri)
     }
 
-    private val optionsBuilder: ImageOptions.Builder = ImageOptions.createBuilder(this)
+    private val optionsBuilder: ImageOptions.Builder by lazy { ImageOptions.createBuilder(this) }
     fun builder(): ImageOptions.Builder {
         return optionsBuilder
     }
