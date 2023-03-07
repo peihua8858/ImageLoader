@@ -352,6 +352,11 @@ open class RatioImageView @JvmOverloads constructor(
         setImageUrl(uri)
     }
 
+    private val optionsBuilder: ImageOptions.Builder = ImageOptions.createBuilder(this)
+    fun builder(): ImageOptions.Builder {
+        return optionsBuilder
+    }
+
     /**
      * 统一资源标志符加载图片,如果传入的宽和高大于0，则自动压缩图片以适应传入的宽和高
      *
@@ -369,30 +374,29 @@ open class RatioImageView @JvmOverloads constructor(
             return
         }
         mUri = uri
-        ImageLoader.getInstance().loadImage(ImageOptions.build {
-            this.setCropCircle(this@RatioImageView.isCropCircle)
-            this.setRoundedRadius(this@RatioImageView.roundedRadius)
-            this.setRoundedMargin(this@RatioImageView.roundedMargin)
-            this.setBlur(this@RatioImageView.isBlur)
-            this.setImageUrl(uri)
-            this.setGrayScale(this@RatioImageView.isGrayScale)
-            this.setCornerType(this@RatioImageView.cornerType)
-            this.setOverrideWidth(this@RatioImageView.mWidth)
-            this.setOverrideHeight(this@RatioImageView.mHeight)
-            this.setReverseDirection(this@RatioImageView.reverseDirection)
-            this.setRtl(this@RatioImageView.isRtl)
-            this.setSizeMultiplier(this@RatioImageView.sizeMultiplier)
-            this.setLoaderListener(this@RatioImageView.listener)
-            this.setMatrixValues(this@RatioImageView.matrixValues)
-            this.setTargetView(this@RatioImageView)
-            this.setShowGif(isShowGif)
-            this.setScaleType(glideScaleType)
-            this.setRotateDegree(rotateDegree.toFloat())
-            this.setUseAnimationPool(useAnimationPool)
-            this.setPlaceholderDrawable(placeholderDrawable)
-            this.setErrorPlaceholder(errorDrawable)
-            this.setDiskCacheStrategy(diskCacheStrategy)
-        })
+        optionsBuilder.setCropCircle(this@RatioImageView.isCropCircle)
+            .setRoundedRadius(this@RatioImageView.roundedRadius)
+            .setRoundedMargin(this@RatioImageView.roundedMargin)
+            .setBlur(this@RatioImageView.isBlur)
+            .setImageUrl(uri)
+            .setGrayScale(this@RatioImageView.isGrayScale)
+            .setCornerType(this@RatioImageView.cornerType)
+            .setOverrideWidth(this@RatioImageView.mWidth)
+            .setOverrideHeight(this@RatioImageView.mHeight)
+            .setReverseDirection(this@RatioImageView.reverseDirection)
+            .setRtl(this@RatioImageView.isRtl)
+            .setSizeMultiplier(this@RatioImageView.sizeMultiplier)
+            .setLoaderListener(this@RatioImageView.listener)
+            .setMatrixValues(this@RatioImageView.matrixValues)
+            .setTargetView(this@RatioImageView)
+            .setShowGif(isShowGif)
+            .setScaleType(glideScaleType)
+            .setRotateDegree(rotateDegree.toFloat())
+            .setUseAnimationPool(useAnimationPool)
+            .setPlaceholderDrawable(placeholderDrawable)
+            .setErrorPlaceholder(errorDrawable)
+            .setDiskCacheStrategy(diskCacheStrategy)
+        ImageLoader.getInstance().loadImage(optionsBuilder.build())
     }
 
     val isRtl: Boolean

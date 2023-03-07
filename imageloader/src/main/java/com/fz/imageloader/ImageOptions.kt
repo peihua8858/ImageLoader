@@ -6,6 +6,7 @@ import android.content.res.Resources.Theme
 import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.fz.imageloader.widget.RatioImageView
 
 /**
  * 图片加载配置选项
@@ -105,6 +106,10 @@ class ImageOptions<T>(
         fun createBuilder(): Builder {
             return Builder()
         }
+
+        internal fun createBuilder(imageView: RatioImageView): Builder {
+            return Builder(imageView)
+        }
     }
 
     class Builder {
@@ -136,7 +141,7 @@ class ImageOptions<T>(
         /**
          * 图片地址 包括网络地址、本地文件地址、资源id等
          */
-        private var imageUrl: Any? = null
+        internal var imageUrl: Any? = null
 
         /**
          * 圆角半径
@@ -387,6 +392,13 @@ class ImageOptions<T>(
         fun setTarget(target: ImageViewTarget<*>?): Builder {
             this.target = target
             return this
+        }
+
+        internal var imageView: RatioImageView? = null
+
+        constructor()
+        internal constructor(imageView: RatioImageView) {
+            this.imageView = imageView
         }
 
         fun build() = ImageOptions(

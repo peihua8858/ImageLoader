@@ -3,6 +3,7 @@ package com.fz.imageloader.utils
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import com.fz.imageloader.ImageOptions
 import java.lang.AssertionError
 
 /**
@@ -52,4 +53,7 @@ class Utils private constructor() {
     init {
         throw AssertionError()
     }
+}
+fun ImageOptions.Builder.run() {
+    this.imageView?.setImageUrl(this.imageUrl)
 }
