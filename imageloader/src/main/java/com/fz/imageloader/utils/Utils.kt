@@ -3,7 +3,9 @@ package com.fz.imageloader.utils
 import android.app.Activity
 import android.content.Context
 import android.content.ContextWrapper
+import com.fz.imageloader.ImageLoader
 import com.fz.imageloader.ImageOptions
+import com.fz.imageloader.widget.RatioImageView
 import java.lang.AssertionError
 
 /**
@@ -54,6 +56,12 @@ class Utils private constructor() {
         throw AssertionError()
     }
 }
+
 fun ImageOptions.Builder.run() {
-    this.imageView?.setImageUrl(this.imageUrl)
+    val v = imageView
+    if (v is RatioImageView) {
+        v.setImageUrl(this.imageUrl)
+    } else {
+        ImageLoader.getInstance().loadImage(build())
+    }
 }

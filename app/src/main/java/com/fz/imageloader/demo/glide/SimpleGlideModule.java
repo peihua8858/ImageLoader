@@ -15,9 +15,10 @@ import com.bumptech.glide.load.engine.bitmap_recycle.LruBitmapPool;
 import com.bumptech.glide.load.engine.cache.LruResourceCache;
 import com.bumptech.glide.load.engine.cache.MemorySizeCalculator;
 import com.bumptech.glide.load.model.GlideUrl;
-import com.bumptech.glide.load.model.stream.HttpGlideUrlLoader;
 import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
+import com.fz.imageloader.demo.BuildConfig;
+import com.fz.imageloader.glide.ExifInterfaceImageHeaderParser;
 
 import java.io.InputStream;
 import java.util.Iterator;
@@ -64,7 +65,7 @@ public class SimpleGlideModule extends AppGlideModule {
     @Override
     public void registerComponents(@NonNull Context context, @NonNull Glide glide, @NonNull Registry registry) {
         // 配置使用OKHttp来请求网络
-        registry.replace(GlideUrl.class, InputStream.class, new HttpGlideUrlLoader.Factory());
+        registry.replace(GlideUrl.class, InputStream.class, new OkHttpUrlLoader.Factory());
         List<ImageHeaderParser> imageHeaderParsers = registry.getImageHeaderParsers();
 //        android.media.ExifInterface.readByteOrder(ExifInterface.java:3121)
 //        Invalid image: ExifInterface got an unsupported image format file(ExifInterface supports JPEG and some RAW image formats only)

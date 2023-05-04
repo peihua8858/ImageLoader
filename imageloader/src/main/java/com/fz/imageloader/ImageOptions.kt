@@ -5,8 +5,8 @@ import android.content.Context
 import android.content.res.Resources.Theme
 import android.graphics.drawable.Drawable
 import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import com.fz.imageloader.widget.RatioImageView
 
 /**
  * 图片加载配置选项
@@ -107,7 +107,8 @@ class ImageOptions<T>(
             return Builder()
         }
 
-        internal fun createBuilder(imageView: RatioImageView): Builder {
+        @JvmStatic
+        internal fun createBuilder(imageView: ImageView): Builder {
             return Builder(imageView)
         }
     }
@@ -394,11 +395,53 @@ class ImageOptions<T>(
             return this
         }
 
-        internal var imageView: RatioImageView? = null
+        internal var imageView: ImageView? = null
 
         constructor()
-        internal constructor(imageView: RatioImageView) {
+        constructor(imageView: ImageView) {
             this.imageView = imageView
+        }
+
+        constructor(builder: Builder) {
+            activity = builder.activity
+            context = builder.context
+            fragment = builder.fragment
+            targetView = builder.targetView
+            sizeMultiplier = builder.sizeMultiplier
+            errorPlaceholder = builder.errorPlaceholder
+            errorId = builder.errorId
+            placeholderDrawable = builder.placeholderDrawable
+            placeholderId = builder.placeholderId
+            isCacheAble = builder.isCacheAble
+            overrideHeight = builder.overrideHeight
+            overrideWidth = builder.overrideWidth
+            fallbackDrawable = builder.fallbackDrawable
+            fallbackId = builder.fallbackId
+            theme = builder.theme
+            isAutoCloneEnabled = builder.isAutoCloneEnabled
+            useUnlimitedSourceGeneratorsPool = builder.useUnlimitedSourceGeneratorsPool
+            onlyRetrieveFromCache = builder.onlyRetrieveFromCache
+            useAnimationPool = builder.useAnimationPool
+            scaleType = builder.scaleType
+            imageUrl = builder.imageUrl
+            roundedRadius = builder.roundedRadius
+            roundedMargin = builder.roundedMargin
+            isCropCircle = builder.isCropCircle
+            isGrayScale = builder.isGrayScale
+            isBlur = builder.isBlur
+            fuzzyRadius = builder.fuzzyRadius
+            sampling = builder.sampling
+            rotateDegree = builder.rotateDegree
+            isShowGif = builder.isShowGif
+            isShowBitmap = builder.isShowBitmap
+            cornerType = builder.cornerType
+            loaderListener = builder.loaderListener
+            priority = builder.priority
+            diskCacheStrategy = builder.diskCacheStrategy
+            reverseDirection = builder.reverseDirection
+            isRtl = builder.isRtl
+            matrixValues = builder.matrixValues
+            target = builder.target
         }
 
         fun build() = ImageOptions(

@@ -1,6 +1,4 @@
-package com.fz.imageloader;
-
-import android.graphics.drawable.Drawable;
+package com.fz.imageloader
 
 /**
  * 加载图片回调
@@ -11,34 +9,34 @@ import android.graphics.drawable.Drawable;
  * @date 2016/7/15
  * @since 1.0
  */
-public interface LoaderListener<RESOURCE> {
+interface LoaderListener<R> {
     /**
      * 图片加载成功
      *
      * @param bitmap
      * @param width
      * @param height
-     * @return 阻止调用 {@link Target#onResourceReady(Object, Transition)}
-     *      {@code target}，通常是因为侦听器想要更新{@code目标}或对象
-     *      {@code target}包装自己或{@code false}允许{@link Target#onResourceReady(Object, Transition)}
-     *     {@code target}上调用。
+     * @return 阻止调用 [Target.onResourceReady]
+     *      `target`，通常是因为侦听器想要更新{@code目标}或对象
+     *      `target`包装自己或`false`允许[Target.onResourceReady]
+     *     `target`上调用。
      * @author dingpeihua
      * @date 2019/1/2 17:59
      * @version 1.0
      */
-    boolean onSuccess(RESOURCE bitmap, int width, int height);
+    fun onSuccess(bitmap: R?, width: Int, height: Int): Boolean
 
     /**
      * 图片加载失败
      *
      * @param e
-     * @return 阻止调用 {@link Target#onLoadFailed(Drawable)}
-     *      {@code target}，通常是因为侦听器想要更新{@code目标}或对象
-     *      {@code target}包装自己或{@code false}允许{@link Target#onLoadFailed(Drawable)}
-     *     {@code target}上调用。
+     * @return 阻止调用 [Target.onLoadFailed]
+     *      `target`，通常是因为侦听器想要更新{@code目标}或对象
+     *      `target`包装自己或`false`允许[Target.onLoadFailed]
+     *     `target`上调用。
      * @author dingpeihua
      * @date 2019/1/2 17:59
      * @version 1.0
      */
-    boolean onError(Exception e);
+    fun onError(e: Exception?): Boolean
 }

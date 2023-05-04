@@ -22,8 +22,8 @@ public class CropCircleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop_circle);
         RatioImageView imageView1 = findViewById(R.id.riv_image_1);
-        imageView1.setImageUrl("https://files.catbox.moe/2tj7gj.png");
-//        imageView1.setImageUrl("https://review.rglcdn.com/upload/rosegal/avatar/20190827/0C05D3C4F0F0947047E9B420AD569CF7.gif");
+//        imageView1.setImageUrl("https://files.catbox.moe/2tj7gj.png");
+        imageView1.setImageUrl("https://review.rglcdn.com/upload/rosegal/avatar/20190827/0C05D3C4F0F0947047E9B420AD569CF7.gif");
 //        Glide.with(this).load("http://hiphotos.baidu.com/feed/pic/item/9e3df8dcd100baa1e12cffe04c10b912c8fc2e6c.gif")
 //                .into(imageView1);
 //        imageView1.setImageUrl("https://uidesign.zafcdn.com/ZF/image/other/20190831_12438/es_10.gif");

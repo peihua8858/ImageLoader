@@ -168,15 +168,15 @@ open class RatioImageView @JvmOverloads constructor(
             reverseDirection = S_REVERSE_DIRECTION[reverseIndex - 1]
         }
         placeholderDrawable =
-            getDrawable(context, a.getResourceId(R.styleable.RatioImageView_riv_placeholder, -1))
+            getDrawable(context, a.getResourceId(R.styleable.RatioImageView_riv_placeholder, 0))
         errorDrawable =
-            getDrawable(context, a.getResourceId(R.styleable.RatioImageView_riv_error, -1))
-        srcCompat = a.getResourceId(R.styleable.RatioImageView_srcCompat, -1)
-        if (srcCompat == -1) {
-            srcCompat = a.getResourceId(R.styleable.RatioImageView_riv_srcCompat, -1)
+            getDrawable(context, a.getResourceId(R.styleable.RatioImageView_riv_error, 0))
+        srcCompat = a.getResourceId(R.styleable.RatioImageView_srcCompat, 0)
+        if (srcCompat == 0) {
+            srcCompat = a.getResourceId(R.styleable.RatioImageView_riv_srcCompat, 0)
         }
-        if (srcCompat != -1) {
-            setImageUrl(srcCompat, isShowGif)
+        if (srcCompat != 0) {
+            setImageUrl(srcCompat)
         }
         a.recycle()
     }
@@ -373,7 +373,8 @@ open class RatioImageView @JvmOverloads constructor(
             return
         }
         mUri = uri
-        optionsBuilder.setCropCircle(this.isCropCircle)
+        val builder = ImageOptions.Builder(optionsBuilder)
+        builder.setCropCircle(this.isCropCircle)
             .setRoundedRadius(this.roundedRadius)
             .setRoundedMargin(this.roundedMargin)
             .setBlur(this.isBlur)
@@ -395,7 +396,7 @@ open class RatioImageView @JvmOverloads constructor(
             .setPlaceholderDrawable(placeholderDrawable)
             .setErrorPlaceholder(errorDrawable)
             .setDiskCacheStrategy(diskCacheStrategy)
-        ImageLoader.getInstance().loadImage(optionsBuilder.build())
+        ImageLoader.getInstance().loadImage(builder.build())
     }
 
     val isRtl: Boolean

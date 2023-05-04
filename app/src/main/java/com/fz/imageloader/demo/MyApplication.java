@@ -3,7 +3,7 @@ package com.fz.imageloader.demo;
 import android.app.Application;
 
 import com.fz.imageloader.ImageLoader;
-import com.fz.imageloader.demo.glide.ImageGlideFetcher;
+import com.fz.imageloader.glide.ImageGlideFetcher;
 import com.socks.library.KLog;
 
 import java.io.File;

@@ -10,8 +10,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fz.common.utils.getDiskCacheDir
 import com.fz.common.utils.getFileFromUri
 import com.fz.dialog.LoadingDialogFragment
-import com.fz.imageloader.demo.activity.*
+import com.fz.imageloader.demo.activity.BlurActivity
+import com.fz.imageloader.demo.activity.CropCircleActivity
+import com.fz.imageloader.demo.activity.GifActivity
+import com.fz.imageloader.demo.activity.GrayScaleActivity
+import com.fz.imageloader.demo.activity.RotateActivity
 import com.fz.imageloader.demo.glide.ImageCompress
+import com.fz.imageloader.widget.RatioImageView
 import com.luck.picture.lib.PictureSelector
 import com.luck.picture.lib.config.PictureConfig
 import com.luck.picture.lib.config.PictureMimeType
@@ -19,7 +24,7 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Locale
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -88,21 +93,22 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         }
-//        val imageView7 = findViewById<ImageView>(R.id.riv_image_7)
+        val imageView7 = findViewById<RatioImageView>(R.id.riv_image_8)
+//        imageView7.setImageUrl(R.mipmap.ic_insure_loading)
 //        ImageLoader.getInstance().createProcessor(ImageGlideFetcher())
 //        ImageLoader.getInstance().loadImage(
 //            ImageOptions.Builder()
 //                .setImageUrl("https://uidesign.rglcdn.com/RG/image/others/20190830_12416/LOGO@3x.png")
 //                .setTargetView(imageView7)
 //                .setScaleType(GlideScaleType.CENTER_INSIDE)
-//                .setLoaderListener(object : LoaderListener<Drawable?> {
+//                .setLoaderListener(object : LoaderListener<Drawable> {
 //                    override fun onSuccess(bitmap: Drawable?, width: Int, height: Int): Boolean {
 //                        KLog.d("ImageLoader>>bitmap:[" + bitmap?.intrinsicWidth + ":" + bitmap?.intrinsicHeight + "]")
 //                        return false
 //                    }
 //
-//                    override fun onError(e: Exception): Boolean {
-//                        return false
+//                    override fun onError(e: Exception?): Boolean {
+//                        TODO("Not yet implemented")
 //                    }
 //                })
 //                .build()

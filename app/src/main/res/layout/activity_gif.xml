@@ -81,5 +81,11 @@
             android:adjustViewBounds="true"
             android:maxWidth="140dp"
             android:maxHeight="90dp" />
+        <com.fz.imageloader.widget.RatioImageView
+            android:id="@+id/riv_image_9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:riv_isShowGif="true"
+            app:riv_srcCompat="@mipmap/ic_insure_loading" />
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

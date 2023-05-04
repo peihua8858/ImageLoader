@@ -187,77 +187,44 @@ class ImageGlideFetcher : IImageLoader {
         }
         when {
             options.isShowGif -> {
-                loadGif(requestManager, requestOptions, options)
+                loadImageUrl(
+                    requestManager.asGif(),
+                    requestOptions,
+                    options as ImageOptions<GifDrawable>
+                )
             }
             options.isShowBitmap -> {
-                loadBitmap(requestManager, requestOptions, options)
+                loadImageUrl(
+                    requestManager.asBitmap(),
+                    requestOptions,
+                    options as ImageOptions<Bitmap>
+                )
             }
             else -> {
-                loadDrawable(requestManager, requestOptions, options)
+                loadImageUrl(
+                    requestManager.asDrawable(),
+                    requestOptions,
+                    options as ImageOptions<Drawable>
+                )
             }
         }
     }
 
-    private fun <T> loadGif(
-        requestManager: RequestManager,
+    private fun <T> loadImageUrl(
+        requestBuilder: RequestBuilder<T>,
         requestOptions: RequestOptions,
         options: ImageOptions<T>
     ) {
-        var requestBuilder = requestManager.asGif()
-        if (options.loaderListener != null) {
-            requestBuilder = requestBuilder.listener(
-                DRequestListener(
-                    options.loaderListener as LoaderListener<GifDrawable>,
-                    options.overrideWidth,
-                    options.overrideHeight
-                )
-            )
-        }
-        loadImage(requestBuilder, requestOptions, options)
-    }
-
-    private fun <T> loadDrawable(
-        requestManager: RequestManager,
-        requestOptions: RequestOptions,
-        options: ImageOptions<T>
-    ) {
-        var requestBuilder = requestManager.asDrawable()
-        if (options.loaderListener != null) {
-            requestBuilder = requestBuilder.listener(
-                DRequestListener(
-                    options.loaderListener as LoaderListener<Drawable>,
-                    options.overrideWidth,
-                    options.overrideHeight
-                )
-            )
-        }
-        loadImage(requestBuilder, requestOptions, options)
-    }
-
-    private fun <T> loadBitmap(
-        requestManager: RequestManager,
-        requestOptions: RequestOptions,
-        options: ImageOptions<T>
-    ) {
-        var requestBuilder: RequestBuilder<Bitmap> = requestManager.asBitmap()
-        if (options.loaderListener != null) {
-            requestBuilder = requestBuilder.listener(
-                DRequestListener(
-                    options.loaderListener as LoaderListener<Bitmap>,
-                    options.overrideWidth,
-                    options.overrideHeight
-                )
-            )
-        }
-        loadImage(requestBuilder, requestOptions, options)
-    }
-
-    private fun <T> imageUrl(
-        requestBuilder: RequestBuilder<*>,
-        requestOptions: RequestOptions,
-        options: ImageOptions<T>
-    ): RequestBuilder<T> {
         var builder = requestBuilder
+        if (options.loaderListener != null) {
+            builder = requestBuilder.listener(
+                DRequestListener(
+                    options.loaderListener as LoaderListener<T>,
+                    options.overrideWidth,
+                    options.overrideHeight
+                )
+            )
+        }
         if (options.imageUrl is Int) {
             val resourceId = options.imageUrl as Int
             builder = builder.load(resourceId)
@@ -265,7 +232,7 @@ class ImageGlideFetcher : IImageLoader {
         } else if (options.imageUrl is String) {
             var url = options.imageUrl as String
             url = url.trim { it <= ' ' }
-            if (TextUtils.isEmpty(url)) {
+            if (url.isEmpty()) {
                 Log.e("ImageLoad", "Url is empty.")
                 callError(
                     options.targetView,
@@ -273,7 +240,7 @@ class ImageGlideFetcher : IImageLoader {
                     options.loaderListener,
                     "Url is empty"
                 )
-                return builder as RequestBuilder<T>
+                return
             }
             if (url.uppercase().startsWith("file://")) {
                 builder = builder.load(File(url))
@@ -289,16 +256,6 @@ class ImageGlideFetcher : IImageLoader {
             builder = builder.load(options.imageUrl)
             builder = builder.apply(requestOptions)
         }
-        return builder as RequestBuilder<T>
-    }
-
-    private fun <T> loadImage(
-        requestBuilder: RequestBuilder<*>,
-        requestOptions: RequestOptions,
-        options: ImageOptions<T>
-    ) {
-        var builder = requestBuilder
-        builder = imageUrl(builder, requestOptions, options)
         val imageView = options.targetView
         val target = options.target
         when {

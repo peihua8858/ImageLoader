@@ -9,12 +9,21 @@ import com.bumptech.glide.load.model.ModelLoaderFactory;
 import com.bumptech.glide.load.model.MultiModelLoaderFactory;
 
 import java.io.InputStream;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.concurrent.TimeUnit;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
+import javax.net.ssl.X509TrustManager;
+
 import okhttp3.Call;
+import okhttp3.ConnectionSpec;
 import okhttp3.OkHttpClient;
 import okhttp3.Protocol;
+
 
 public class OkHttpUrlLoader implements ModelLoader<GlideUrl, InputStream> {
 
@@ -50,14 +59,36 @@ public class OkHttpUrlLoader implements ModelLoader<GlideUrl, InputStream> {
             if (internalClient == null) {
                 synchronized (Factory.class) {
                     if (internalClient == null) {
-                        internalClient = new OkHttpClient.Builder()
-                                .protocols(Collections.singletonList(Protocol.HTTP_1_1))
+                        X509TrustManager trustAllCert = new X509TrustManager() {
+
+                            @Override
+                            public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+
+                            }
+
+                            @Override
+                            public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+
+                            }
+
+                            @Override
+                            public X509Certificate[] getAcceptedIssuers() {
+                                return new X509Certificate[0];
+                            }
+                        };
+                        OkHttpClient client1 = new OkHttpClient.Builder()
+                                .protocols(Arrays.asList(Protocol.HTTP_1_1))
                                 .connectTimeout(10, TimeUnit.MINUTES)
                                 .readTimeout(10, TimeUnit.MINUTES)
                                 .writeTimeout(10, TimeUnit.MINUTES)
                                 .retryOnConnectionFailure(false)
-
+                                .hostnameVerifier((hostname, session) -> true)
+                                .sslSocketFactory(new MySSLSocketFactory(trustAllCert), trustAllCert)
+                                .connectionSpecs(Arrays.asList(ConnectionSpec.MODERN_TLS,
+                                        ConnectionSpec.CLEARTEXT,  ConnectionSpec.RESTRICTED_TLS,
+                                        ConnectionSpec.COMPATIBLE_TLS))
                                 .build();
+                        internalClient = client1;
                     }
                 }
             }

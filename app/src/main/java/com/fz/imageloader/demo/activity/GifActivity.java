@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.fz.imageloader.demo.R;
+import com.fz.imageloader.widget.RatioImageView;
 
 /**
  * 灰度变换
@@ -30,16 +31,16 @@ public class GifActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gif);
-//        RatioImageView imageView1 = findViewById(R.id.riv_image_1);
-//        int screenWidth = getScreenWidth();
-//        int newHeight = screenWidth / (500 / 208);
-////        Transformation<Bitmap> circleCrop = new CircleCrop();
-////        GlideApp.with(this)
-////                .load("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif")
-////                .optionalTransform(circleCrop)
-////                .optionalTransform(WebpDrawable.class, new WebpDrawableTransformation(circleCrop))
-////                .into(imageView1);
-//        imageView1.setImageUrl("https://gloimg.zafcdn.com/zaful/pdm-product-pic/Clothing/2019/04/12/grid-img/1565893773365970176.jpg");
+        RatioImageView imageView1 = findViewById(R.id.riv_image_1);
+        int screenWidth = getScreenWidth();
+        int newHeight = screenWidth / (500 / 208);
+//        Transformation<Bitmap> circleCrop = new CircleCrop();
+//        GlideApp.with(this)
+//                .load("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif")
+//                .optionalTransform(circleCrop)
+//                .optionalTransform(WebpDrawable.class, new WebpDrawableTransformation(circleCrop))
+//                .into(imageView1);
+        imageView1.setImageUrl("https://gloimg.zafcdn.com/zaful/pdm-product-pic/Clothing/2019/04/12/grid-img/1565893773365970176.jpg");
 //        imageView1.setImageUrl("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif", screenWidth, newHeight);
 ////        Glide.with(this).asGif()
 ////                .apply(new RequestOptions().override(screenWidth,newHeight)).load("https://uidesign.zafcdn.com/ZF/image/189/BANNER_01.gif").into(imageView1);
