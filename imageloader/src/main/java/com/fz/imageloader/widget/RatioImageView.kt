@@ -182,7 +182,7 @@ open class RatioImageView @JvmOverloads constructor(
     }
 
     fun getDrawable(context: Context?, resId: Int): Drawable? {
-        if (resId == -1) {
+        if (resId == 0) {
             return null
         }
         var drawable: Drawable? = null
