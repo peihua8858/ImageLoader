@@ -11,6 +11,17 @@ package com.fz.imageloader
  */
 interface LoaderListener<R> {
     /**
+     * 开始加载图片
+     * @param options 加载参数选项
+     * @author dingpeihua
+     * @date 2023/5/16 16:09
+     * @version 1.0
+     */
+    fun onLoadStarted(options: ImageOptions<R>) {
+
+    }
+
+    /**
      * 图片加载成功
      *
      * @param bitmap

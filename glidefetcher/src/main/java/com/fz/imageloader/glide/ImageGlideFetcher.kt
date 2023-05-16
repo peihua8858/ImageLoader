@@ -3,7 +3,6 @@ package com.fz.imageloader.glide
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import android.text.TextUtils
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
@@ -176,15 +175,6 @@ class ImageGlideFetcher : IImageLoader {
                 throw IllegalArgumentException("Context is not available!")
             }
         }
-        if (options.imageUrl == null || options.imageUrl.toString().isEmpty()) {
-            Log.e("ImageLoad", "Url is null.")
-            callError(
-                imageView,
-                options.errorPlaceholder,
-                options.loaderListener, "Url is null."
-            )
-            return
-        }
         when {
             options.isShowGif -> {
                 loadImageUrl(
@@ -215,11 +205,22 @@ class ImageGlideFetcher : IImageLoader {
         requestOptions: RequestOptions,
         options: ImageOptions<T>
     ) {
+        val loaderListener: LoaderListener<T>? = options.loaderListener as? LoaderListener<T>
+        loaderListener?.onLoadStarted(options)
+        if (options.imageUrl == null || options.imageUrl.toString().isEmpty()) {
+            Log.e("ImageLoad", "Url is null.")
+            callError(
+                options.targetView,
+                options.errorPlaceholder,
+                loaderListener, "Url is null."
+            )
+            return
+        }
         var builder = requestBuilder
-        if (options.loaderListener != null) {
+        if (loaderListener != null) {
             builder = requestBuilder.listener(
                 DRequestListener(
-                    options.loaderListener as LoaderListener<T>,
+                    loaderListener,
                     options.overrideWidth,
                     options.overrideHeight
                 )
@@ -237,7 +238,7 @@ class ImageGlideFetcher : IImageLoader {
                 callError(
                     options.targetView,
                     options.errorPlaceholder,
-                    options.loaderListener,
+                    loaderListener,
                     "Url is empty"
                 )
                 return
