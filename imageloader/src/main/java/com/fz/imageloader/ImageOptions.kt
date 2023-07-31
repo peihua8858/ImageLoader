@@ -93,6 +93,8 @@ class ImageOptions<T>(
      */
     val matrixValues: FloatArray? = null,
     val target: ImageViewTarget<T>?,
+    val options: Any? = null,
+    val signature: Any? = null
 ) {
 
     companion object {
@@ -138,6 +140,8 @@ class ImageOptions<T>(
         private var onlyRetrieveFromCache = false
         private var useAnimationPool = false
         private var scaleType: GlideScaleType? = null
+        private var options: Any? = null
+        private var signature: Any? = null
 
         /**
          * 图片地址 包括网络地址、本地文件地址、资源id等
@@ -395,6 +399,21 @@ class ImageOptions<T>(
             return this
         }
 
+        fun setTarget(target: ImageView): Builder {
+            this.imageView = target
+            return this
+        }
+
+        fun setOptions(options: Any): Builder {
+            this.options = options
+            return this
+        }
+
+        fun setSignature(signature: Any): Builder {
+            this.signature = signature
+            return this
+        }
+
         internal var imageView: ImageView? = null
 
         constructor()
@@ -442,6 +461,8 @@ class ImageOptions<T>(
             isRtl = builder.isRtl
             matrixValues = builder.matrixValues
             target = builder.target
+            options = builder.options
+            signature = builder.signature
         }
 
         fun build() = ImageOptions(
@@ -481,7 +502,7 @@ class ImageOptions<T>(
             diskCacheStrategy,
             reverseDirection,
             isRtl,
-            matrixValues, target
+            matrixValues, target, options, signature
         )
     }
 }

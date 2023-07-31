@@ -13,6 +13,7 @@ import com.bumptech.glide.RequestManager
 import com.bumptech.glide.integration.webp.decoder.WebpDrawable
 import com.bumptech.glide.integration.webp.decoder.WebpDrawableTransformation
 import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.Key
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
@@ -101,16 +102,27 @@ class ImageGlideFetcher : IImageLoader {
             when (options.reverseDirection) {
                 RatioImageView.REVERSE_VERTICAL ->                     //垂直反转
                     values = VERTICAL_MATRIX
+
                 RatioImageView.REVERSE_HORIZONTAL ->                     //水平反转，
                     values = HORIZONTAL_MATRIX
+
                 RatioImageView.REVERSE_LOCALE ->                     //如果是RTL 则图片反向，否则保持不变
                     values = if (options.isRtl) HORIZONTAL_MATRIX else null
+
                 else -> {
                 }
             }
             if (values != null) {
                 multiTransformation.addTransform(MatrixTransformation(values))
             }
+        }
+        val otherOptions = options.options
+        if (otherOptions is RequestOptions) {
+            requestOptions = requestOptions.apply(otherOptions)
+        }
+        val signature = options.signature
+        if (signature is Key) {
+            requestOptions = requestOptions.signature(signature)
         }
         if (options.isCropCircle) {
             multiTransformation.addTransform(CircleCrop())
@@ -159,18 +171,23 @@ class ImageGlideFetcher : IImageLoader {
             options.fragment != null -> {
                 Glide.with(options.fragment!!)
             }
+
             options.activity != null -> {
                 Glide.with(options.activity!!)
             }
+
             options.context != null -> {
                 Glide.with(options.context!!)
             }
+
             options.target != null -> {
                 Glide.with(options.target!!.imageView)
             }
+
             imageView != null -> {
                 Glide.with(imageView)
             }
+
             else -> {
                 throw IllegalArgumentException("Context is not available!")
             }
@@ -183,6 +200,7 @@ class ImageGlideFetcher : IImageLoader {
                     options as ImageOptions<GifDrawable>
                 )
             }
+
             options.isShowBitmap -> {
                 loadImageUrl(
                     requestManager.asBitmap(),
@@ -190,6 +208,7 @@ class ImageGlideFetcher : IImageLoader {
                     options as ImageOptions<Bitmap>
                 )
             }
+
             else -> {
                 loadImageUrl(
                     requestManager.asDrawable(),
@@ -263,9 +282,11 @@ class ImageGlideFetcher : IImageLoader {
             target != null -> {
                 builder.into(ImageTarget(target))
             }
+
             imageView is ImageView -> {
                 builder.into(imageView)
             }
+
             else -> {
                 builder.submit(
                     if (options.overrideWidth == 0) Target.SIZE_ORIGINAL else options.overrideWidth,
