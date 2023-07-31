@@ -400,7 +400,7 @@ class ImageOptions<T>(
         }
 
         fun setTarget(target: ImageView): Builder {
-            this.imageView = target
+            this.targetView = target
             return this
         }
 
@@ -414,11 +414,10 @@ class ImageOptions<T>(
             return this
         }
 
-        internal var imageView: ImageView? = null
 
         constructor()
         constructor(imageView: ImageView) {
-            this.imageView = imageView
+            this.targetView = imageView
         }
 
         constructor(builder: Builder) {
