@@ -34,17 +34,17 @@ class ImageLoader : IImageLoader {
     override fun <T> loadImage(
         context: Context,
         url: Any,
-        callback: (T?, Int, Int, Exception?) -> Boolean
+        callback: ((T?, Int, Int, Exception?) -> Boolean)?
     ) {
-        mImageFetcher?.loadImage(context, url, callback)
-    }
-
-    override fun <T> loadImage(context: Context, url: Any, callback: (T?, Exception?) -> Boolean) {
         mImageFetcher?.loadImage(context, url, callback)
     }
 
     override fun loadImage(targetView: View, url: Any) {
         mImageFetcher?.loadImage(targetView, url)
+    }
+
+    override fun loadImage(targetView: View, url: Any, options: Any, signature: Any?) {
+        mImageFetcher?.loadImage(targetView, url, options, signature)
     }
 
     override fun loadImage(targetView: View, url: Any, width: Int, height: Int) {

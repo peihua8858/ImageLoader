@@ -4,9 +4,15 @@ import android.content.Context
 import android.view.View
 
 interface IImageLoader {
-    fun <T> loadImage(context: Context, url: Any, callback: (T?, Int, Int, Exception?) -> Boolean)
-    fun <T> loadImage(context: Context, url: Any, callback: (T?, Exception?) -> Boolean)
+
+    fun <T> loadImage(
+        context: Context,
+        url: Any,
+        callback: ((T?, Int, Int, Exception?) -> Boolean)? = null
+    )
+
     fun loadImage(targetView: View, url: Any)
+    fun loadImage(targetView: View, url: Any, options: Any, signature: Any? = null)
     fun loadImage(targetView: View, url: Any, width: Int, height: Int)
     fun <T> loadImage(target: ImageViewTarget<T>, url: Any)
     fun <T> loadImage(target: ImageViewTarget<T>, url: Any, width: Int, height: Int)

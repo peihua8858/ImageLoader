@@ -405,12 +405,12 @@ class ImageOptions<T>(
             return this
         }
 
-        fun setOptions(options: Any): Builder {
+        fun setOptions(options: Any?): Builder {
             this.options = options
             return this
         }
 
-        fun setSignature(signature: Any): Builder {
+        fun setSignature(signature: Any?): Builder {
             this.signature = signature
             return this
         }
