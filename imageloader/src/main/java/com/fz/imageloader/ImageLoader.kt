@@ -34,29 +34,36 @@ class ImageLoader : IImageLoader {
     override fun <T> loadImage(
         context: Context,
         url: Any,
+        type: Int,
         callback: ((T?, Int, Int, Exception?) -> Boolean)?
     ) {
-        mImageFetcher?.loadImage(context, url, callback)
+        mImageFetcher?.loadImage(context, url, type, callback)
     }
 
-    override fun loadImage(targetView: View, url: Any) {
-        mImageFetcher?.loadImage(targetView, url)
+    override fun loadImage(targetView: View, url: Any, type: Int) {
+        mImageFetcher?.loadImage(targetView, url, type)
     }
 
-    override fun loadImage(targetView: View, url: Any, options: Any, signature: Any?) {
-        mImageFetcher?.loadImage(targetView, url, options, signature)
+    override fun loadImage(targetView: View, url: Any, type: Int, options: Any, signature: Any?) {
+        mImageFetcher?.loadImage(targetView, url, type, options, signature)
     }
 
-    override fun loadImage(targetView: View, url: Any, width: Int, height: Int) {
-        mImageFetcher?.loadImage(targetView, url, width, height)
+    override fun loadImage(targetView: View, url: Any, width: Int, height: Int, type: Int) {
+        mImageFetcher?.loadImage(targetView, url, width, height, type)
     }
 
-    override fun <T> loadImage(target: ImageViewTarget<T>, url: Any) {
-        mImageFetcher?.loadImage(target, url)
+    override fun <T> loadImage(target: ImageViewTarget<T>, url: Any, type: Int) {
+        mImageFetcher?.loadImage(target, url, type)
     }
 
-    override fun <T> loadImage(target: ImageViewTarget<T>, url: Any, width: Int, height: Int) {
-        mImageFetcher?.loadImage(target, url, width, height)
+    override fun <T> loadImage(
+        target: ImageViewTarget<T>,
+        url: Any,
+        width: Int,
+        height: Int,
+        type: Int
+    ) {
+        mImageFetcher?.loadImage(target, url,width, height, type)
     }
 
     override fun <T> loadImage(options: ImageOptions<T>) {

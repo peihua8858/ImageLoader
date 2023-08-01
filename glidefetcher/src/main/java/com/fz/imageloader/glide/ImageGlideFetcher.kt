@@ -50,11 +50,14 @@ class ImageGlideFetcher : IImageLoader {
     override fun <T> loadImage(
         context: Context,
         url: Any,
+        type: Int,
         callback: ((T?, Int, Int, Exception?) -> Boolean)?
     ) {
         loadImage(ImageOptions.build {
             setContext(context)
             setImageUrl(url)
+            setBitmap(type == IImageLoader.TYPE_BITMAP)
+            setShowGif(type == IImageLoader.TYPE_GIF)
             setLoaderListener(object : LoaderListener<T> {
                 override fun onSuccess(bitmap: T?, width: Int, height: Int): Boolean {
                     return callback?.invoke(bitmap, width, height, null) ?: false
@@ -67,35 +70,43 @@ class ImageGlideFetcher : IImageLoader {
         })
     }
 
-    override fun loadImage(targetView: View, url: Any) {
+    override fun loadImage(targetView: View, url: Any, type: Int) {
         loadImage(ImageOptions.build {
             setTarget(targetView)
             setImageUrl(url)
+            setBitmap(type == IImageLoader.TYPE_BITMAP)
+            setShowGif(type == IImageLoader.TYPE_GIF)
         })
     }
 
-    override fun loadImage(targetView: View, url: Any, options: Any, signature: Any?) {
+    override fun loadImage(targetView: View, url: Any, type: Int, options: Any, signature: Any?) {
         loadImage(ImageOptions.build {
             setTarget(targetView)
             setImageUrl(url)
+            setBitmap(type == IImageLoader.TYPE_BITMAP)
+            setShowGif(type == IImageLoader.TYPE_GIF)
             setOptions(options)
             setSignature(signature)
         })
     }
 
-    override fun loadImage(targetView: View, url: Any, width: Int, height: Int) {
+    override fun loadImage(targetView: View, url: Any, width: Int, height: Int, type: Int) {
         loadImage(ImageOptions.build {
             setTarget(targetView)
             setImageUrl(url)
             setOverrideWidth(width)
             setOverrideHeight(height)
+            setBitmap(type == IImageLoader.TYPE_BITMAP)
+            setShowGif(type == IImageLoader.TYPE_GIF)
         })
     }
 
-    override fun <T> loadImage(target: com.fz.imageloader.ImageViewTarget<T>, url: Any) {
+    override fun <T> loadImage(target: com.fz.imageloader.ImageViewTarget<T>, url: Any, type: Int) {
         loadImage(ImageOptions.build {
             setTarget(target)
             setImageUrl(url)
+            setBitmap(type == IImageLoader.TYPE_BITMAP)
+            setShowGif(type == IImageLoader.TYPE_GIF)
         })
     }
 
@@ -103,13 +114,16 @@ class ImageGlideFetcher : IImageLoader {
         target: com.fz.imageloader.ImageViewTarget<T>,
         url: Any,
         width: Int,
-        height: Int
+        height: Int,
+        type: Int
     ) {
         loadImage(ImageOptions.build {
             setTarget(target)
             setImageUrl(url)
             setOverrideWidth(width)
             setOverrideHeight(height)
+            setBitmap(type == IImageLoader.TYPE_BITMAP)
+            setShowGif(type == IImageLoader.TYPE_GIF)
         })
     }
 

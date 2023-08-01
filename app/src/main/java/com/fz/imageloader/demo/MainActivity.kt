@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.fz.common.utils.getDiskCacheDir
 import com.fz.common.utils.getFileFromUri
 import com.fz.dialog.LoadingDialogFragment
+import com.fz.imageloader.ImageLoader
 import com.fz.imageloader.demo.activity.BlurActivity
 import com.fz.imageloader.demo.activity.CropCircleActivity
 import com.fz.imageloader.demo.activity.GifActivity
@@ -94,6 +95,7 @@ class MainActivity : AppCompatActivity() {
             )
         }
         val imageView7 = findViewById<RatioImageView>(R.id.riv_image_8)
+        ImageLoader.getInstance().loadImage(imageView7,"")
 //        imageView7.setImageUrl(R.mipmap.ic_insure_loading)
 //        ImageLoader.getInstance().createProcessor(ImageGlideFetcher())
 //        ImageLoader.getInstance().loadImage(
