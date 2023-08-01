@@ -9,11 +9,9 @@ import android.view.View
  * @date 2021/9/22 19:20
  * @version 1.0
  */
-class ImageLoader : IImageLoader {
+class ImageLoader private constructor() : IImageLoader {
     private var mImageFetcher: IImageLoader? = null
 
-    private fun ImageFetcherHelper() {
-    }
 
     private object Internal {
         var httpHelper: ImageLoader = ImageLoader()
@@ -63,7 +61,7 @@ class ImageLoader : IImageLoader {
         height: Int,
         type: Int
     ) {
-        mImageFetcher?.loadImage(target, url,width, height, type)
+        mImageFetcher?.loadImage(target, url, width, height, type)
     }
 
     override fun <T> loadImage(options: ImageOptions<T>) {
