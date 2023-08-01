@@ -122,7 +122,7 @@ class ImageOptions<T>(
         private var context: Context? = null
         private var fragment: Fragment? = null
         private var activity: Activity? = null
-        private var targetView: View? = null
+        internal var targetView: View? = null
         private var target: ImageViewTarget<*>? = null
         private var sizeMultiplier = 0f
         private var errorPlaceholder: Drawable? = null
@@ -219,6 +219,7 @@ class ImageOptions<T>(
             return this
         }
 
+        @Deprecated("use setTarget",replaceWith = ReplaceWith("setTarget(ImageView)"))
         fun setTargetView(targetView: View): Builder {
             this.targetView = targetView
             return this
@@ -399,7 +400,7 @@ class ImageOptions<T>(
             return this
         }
 
-        fun setTarget(target: ImageView): Builder {
+        fun setTarget(target: View): Builder {
             this.targetView = target
             return this
         }

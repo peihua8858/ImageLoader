@@ -58,7 +58,7 @@ class Utils private constructor() {
 }
 
 fun ImageOptions.Builder.run() {
-    val v = imageView
+    val v = targetView
     if (v is RatioImageView) {
         v.setImageUrl(this.imageUrl)
     } else {

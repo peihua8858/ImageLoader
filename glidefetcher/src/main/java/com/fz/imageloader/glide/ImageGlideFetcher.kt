@@ -46,6 +46,79 @@ class ImageGlideFetcher : IImageLoader {
      * 水平反转
      */
     val HORIZONTAL_MATRIX = floatArrayOf(-1f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 1f)
+    override fun <T> loadImage(context: Context, url: Any, callback: (T?, Exception?) -> Boolean) {
+        loadImage(ImageOptions.build {
+            setContext(context)
+            setImageUrl(url)
+            setLoaderListener(object : LoaderListener<T> {
+                override fun onSuccess(bitmap: T?, width: Int, height: Int): Boolean {
+                    return callback.invoke(bitmap, null)
+                }
+
+                override fun onError(e: Exception?): Boolean {
+                    return callback.invoke(null, e)
+                }
+            })
+        })
+    }
+
+    override fun <T> loadImage(
+        context: Context,
+        url: Any,
+        callback: (T?, Int, Int, Exception?) -> Boolean
+    ) {
+        loadImage(ImageOptions.build {
+            setContext(context)
+            setImageUrl(url)
+            setLoaderListener(object : LoaderListener<T> {
+                override fun onSuccess(bitmap: T?, width: Int, height: Int): Boolean {
+                    return callback.invoke(bitmap, width, height, null)
+                }
+
+                override fun onError(e: Exception?): Boolean {
+                    return callback.invoke(null, -1, -1, e)
+                }
+            })
+        })
+    }
+
+    override fun loadImage(targetView: View, url: Any) {
+        loadImage(ImageOptions.build {
+            setTarget(targetView)
+            setImageUrl(url)
+        })
+    }
+
+    override fun loadImage(targetView: View, url: Any, width: Int, height: Int) {
+        loadImage(ImageOptions.build {
+            setTarget(targetView)
+            setImageUrl(url)
+            setOverrideWidth(width)
+            setOverrideHeight(height)
+        })
+    }
+
+    override fun <T> loadImage(target: com.fz.imageloader.ImageViewTarget<T>, url: Any) {
+        loadImage(ImageOptions.build {
+            setTarget(target)
+            setImageUrl(url)
+        })
+    }
+
+    override fun <T> loadImage(
+        target: com.fz.imageloader.ImageViewTarget<T>,
+        url: Any,
+        width: Int,
+        height: Int
+    ) {
+        loadImage(ImageOptions.build {
+            setTarget(target)
+            setImageUrl(url)
+            setOverrideWidth(width)
+            setOverrideHeight(height)
+        })
+    }
+
     override fun <T> loadImage(options: ImageOptions<T>) {
         var requestOptions = RequestOptions()
         if (options.isAutoCloneEnabled) {

@@ -1,6 +1,7 @@
 package com.fz.imageloader
 
 import android.content.Context
+import android.view.View
 
 /**
  * 图片加载工具
@@ -28,6 +29,34 @@ class ImageLoader : IImageLoader {
 
     fun createProcessor(imageFetcher: IImageLoader) {
         getInstance().mImageFetcher = imageFetcher
+    }
+
+    override fun <T> loadImage(
+        context: Context,
+        url: Any,
+        callback: (T?, Int, Int, Exception?) -> Boolean
+    ) {
+        mImageFetcher?.loadImage(context, url, callback)
+    }
+
+    override fun <T> loadImage(context: Context, url: Any, callback: (T?, Exception?) -> Boolean) {
+        mImageFetcher?.loadImage(context, url, callback)
+    }
+
+    override fun loadImage(targetView: View, url: Any) {
+        mImageFetcher?.loadImage(targetView, url)
+    }
+
+    override fun loadImage(targetView: View, url: Any, width: Int, height: Int) {
+        mImageFetcher?.loadImage(targetView, url, width, height)
+    }
+
+    override fun <T> loadImage(target: ImageViewTarget<T>, url: Any) {
+        mImageFetcher?.loadImage(target, url)
+    }
+
+    override fun <T> loadImage(target: ImageViewTarget<T>, url: Any, width: Int, height: Int) {
+        mImageFetcher?.loadImage(target, url, width, height)
     }
 
     override fun <T> loadImage(options: ImageOptions<T>) {
