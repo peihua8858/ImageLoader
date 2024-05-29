@@ -240,30 +240,53 @@ open class RatioImageView @JvmOverloads constructor(
         requestLayout()
     }
 
-    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+    // override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+    //     if (ratio > 0) {
+    //         val width = MeasureSpec.getSize(widthMeasureSpec)
+    //         val height = (width / ratio).roundToInt()
+    //         try {
+    //             setMeasuredDimension(width, height)
+    //             return
+    //         } catch (e: Exception) {
+    //             e.printStackTrace()
+    //         }
+    //     } else if (isAutoCalSize) {
+    //         // radio <0 高度随图片变
+    //         val d = drawable
+    //         if (d != null) {
+    //             try {
+    //                 // ceil not round - avoid thin vertical gaps along the left/right edges
+    //                 val width = MeasureSpec.getSize(widthMeasureSpec)
+    //                 //宽度定- 高度根据使得图片的宽度充满屏幕
+    //                 val height = ceil(
+    //                     (width.toFloat() * d.intrinsicHeight
+    //                         .toFloat() / d.intrinsicWidth.toFloat()).toDouble()
+    //                 ).toInt()
+    //                 setMeasuredDimension(width, height)
+    //                 return
+    //             } catch (e: Exception) {
+    //                 e.printStackTrace()
+    //             }
+    //         }
+    //     }
+    //     super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+    // }
+ override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         if (ratio > 0) {
-            val width = MeasureSpec.getSize(widthMeasureSpec)
-            val height = (width / ratio).roundToInt()
             try {
-                setMeasuredDimension(width, height)
-                return
+                if (measureViewSize(widthMeasureSpec, heightMeasureSpec, ratio)) return
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-        } else if (isAutoCalSize) {
-            // radio <0 高度随图片变
+        } else {
+            // ratio <0 高度随图片变
             val d = drawable
             if (d != null) {
                 try {
-                    // ceil not round - avoid thin vertical gaps along the left/right edges
-                    val width = MeasureSpec.getSize(widthMeasureSpec)
-                    //宽度定- 高度根据使得图片的宽度充满屏幕
-                    val height = ceil(
-                        (width.toFloat() * d.intrinsicHeight
-                            .toFloat() / d.intrinsicWidth.toFloat()).toDouble()
-                    ).toInt()
-                    setMeasuredDimension(width, height)
-                    return
+                    val intrinsicWidth = d.intrinsicWidth.toFloat()
+                    val intrinsicHeight = d.intrinsicHeight.toFloat()
+                    val aspectRatio = intrinsicWidth / intrinsicHeight
+                    if (measureViewSize(widthMeasureSpec, heightMeasureSpec, aspectRatio)) return
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
@@ -272,6 +295,29 @@ open class RatioImageView @JvmOverloads constructor(
         super.onMeasure(widthMeasureSpec, heightMeasureSpec)
     }
 
+    private fun measureViewSize(
+        widthMeasureSpec: Int,
+        heightMeasureSpec: Int,
+        aspectRatio: Float
+    ): Boolean {
+        val params = layoutParams
+        var height = params.height
+        var width = params.width
+        if (width != LayoutParams.WRAP_CONTENT && width != LayoutParams.MATCH_PARENT) {
+            width = MeasureSpec.getSize(widthMeasureSpec)
+            //宽度定- 高度根据使得图片的宽度充满屏幕
+            val imgHeight = (width / aspectRatio).roundToInt()
+            setMeasuredDimension(width, imgHeight)
+            return true
+        } else if (height != LayoutParams.WRAP_CONTENT && height != LayoutParams.MATCH_PARENT) {
+            height = MeasureSpec.getSize(heightMeasureSpec)
+            //高度定- 宽度根据使得图片的高度充满屏幕
+            val imgWidth = (height * aspectRatio).roundToInt()
+            setMeasuredDimension(imgWidth, height)
+            return true
+        }
+        return false
+    }
     /**
      * 根据文件对象加载图片
      *
